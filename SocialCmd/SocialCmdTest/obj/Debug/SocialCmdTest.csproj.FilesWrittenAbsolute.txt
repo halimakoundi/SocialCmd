@@ -1,0 +1,8 @@
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/bin/Debug/SocialCmdTest.dll.mdb
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/bin/Debug/SocialCmdTest.dll
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/obj/Debug/SocialCmdTest.dll
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/obj/Debug/SocialCmdTest.dll.mdb
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/bin/Debug/nunit.framework.dll
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/bin/Debug/SocialCmd.exe
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmdTest/bin/Debug/SocialCmd.exe.mdb

@@ -1,0 +1,5 @@
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmd/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmd/bin/Debug/SocialCmd.exe.mdb
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmd/bin/Debug/SocialCmd.exe
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmd/obj/x86/Debug/SocialCmd.exe
+/home/halima/GitRepo/SocialCmd/SocialCmd/SocialCmd/obj/x86/Debug/SocialCmd.exe.mdb

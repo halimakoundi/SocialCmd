@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialCmd", "SocialCmd\SocialCmd.csproj", "{69384538-C19F-414D-8A1B-664E36308BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialCmdTest", "SocialCmdTest\SocialCmdTest.csproj", "{5129919D-97AD-4EF6-BEED-B29EE0857D7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5129919D-97AD-4EF6-BEED-B29EE0857D7C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5129919D-97AD-4EF6-BEED-B29EE0857D7C}.Debug|x86.Build.0 = Debug|Any CPU
+		{5129919D-97AD-4EF6-BEED-B29EE0857D7C}.Release|x86.ActiveCfg = Release|Any CPU
+		{5129919D-97AD-4EF6-BEED-B29EE0857D7C}.Release|x86.Build.0 = Release|Any CPU
+		{69384538-C19F-414D-8A1B-664E36308BF6}.Debug|x86.ActiveCfg = Debug|x86
+		{69384538-C19F-414D-8A1B-664E36308BF6}.Debug|x86.Build.0 = Debug|x86
+		{69384538-C19F-414D-8A1B-664E36308BF6}.Release|x86.ActiveCfg = Release|x86
+		{69384538-C19F-414D-8A1B-664E36308BF6}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+EndGlobal
