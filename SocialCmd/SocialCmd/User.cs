@@ -33,7 +33,9 @@ namespace SocialCmd
 		}
 
 		public void Follow(User user){
-			this.Followings.Add (user);
+			if (!(this.Followings.Where (x => x.UserName == user.UserName).Count() > 0)) {
+				this.Followings.Add (user);
+			}
 		}
 
 		/// <summary>

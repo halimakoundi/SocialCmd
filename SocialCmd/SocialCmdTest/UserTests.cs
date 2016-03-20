@@ -5,7 +5,7 @@ using SocialCmd;
 namespace SocialCmdTest
 {
 	[TestFixture ()]
-	public class UserTest
+	public class UserTests
 	{
 		[Test ()]
 		public void PostingTest ()
@@ -36,6 +36,8 @@ namespace SocialCmdTest
 			var userBob = new User ("Bob");
 			user.Follow (userBob);
 			Assert.IsTrue (user.Followings.Count > 0);
+			user.Follow (userBob);
+			Assert.IsFalse (user.Followings.Count > 1);
 			Assert.AreEqual (userBob, user.Followings [0]);
 		}
 

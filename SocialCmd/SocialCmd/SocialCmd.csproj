@@ -38,6 +38,7 @@
     <Compile Include="User.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="CmdKey.cs" />
+    <Compile Include="QualifiedBoolean.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
