@@ -23,8 +23,8 @@ namespace SocialCmdTest
 			System.Threading.Thread.Sleep(60000);
 			Assert.AreEqual ("new Post test (1 minute ago)" + Environment.NewLine, newPost.ToString());
 
-			System.Threading.Thread.Sleep(121000);
-			Assert.AreEqual ("new Post test (3 minutes ago)" + Environment.NewLine, newPost.ToString());
+			System.Threading.Thread.Sleep(60000);
+			Assert.AreEqual ("new Post test (2 minutes ago)" + Environment.NewLine, newPost.ToString());
 
 		}
 

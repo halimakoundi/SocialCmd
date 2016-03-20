@@ -35,10 +35,13 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="Post.cs" />
-    <Compile Include="CmdKey.cs" />
-    <Compile Include="QualifiedBoolean.cs" />
+    <Compile Include="Domain\Post.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\CmdKey.cs" />
+    <Compile Include="Domain\QualifiedBoolean.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Domain\" />
+  </ItemGroup>
 </Project>

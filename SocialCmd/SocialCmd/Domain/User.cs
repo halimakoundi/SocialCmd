@@ -18,7 +18,8 @@ namespace SocialCmd
 
 		public string Read(){
 			var postsStr = string.Empty;
-			foreach (Post post in this.Posts) {
+			var posts = this.Posts.OrderByDescending (x => x.DatePosted).ToList();
+			foreach (Post post in posts) {
 				postsStr += post.ToString () ;
 			}
 			return postsStr;

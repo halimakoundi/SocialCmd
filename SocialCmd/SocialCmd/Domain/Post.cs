@@ -22,7 +22,6 @@ namespace SocialCmd
 			
 			TimeSpan span = (DateTime.Now).Subtract ( DatePosted );
 			var timeDifference = string.Empty;
-			//do we want detailed timeline info i.e (1 minute, 23 seconds ago) or indicating the greater unit is enough ?
 			if (span.Days > 0) {
 				timeDifference += string.Format("{0} day{1}", span.Days, (span.Days > 1 ? "s" : ""));
 			}else if (span.Hours > 0) {

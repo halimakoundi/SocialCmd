@@ -12,7 +12,6 @@ namespace SocialCmd
 		public static void Main (string[] args)
 		{			
 			InitialiseApplication ();
-
 			do {
 				var enteredCommand = PromptUserForCommand ();
 				var result = ExecuteCommandAndReturnResult (enteredCommand);
@@ -21,8 +20,7 @@ namespace SocialCmd
 				} else {
 					ApplicationError (result.Value);
 				}
-			} while(true);
-				
+			} while(true);				
 		}
 
 		private static QualifiedBoolean ExecuteCommandAndReturnResult(string enteredCommand){
@@ -67,10 +65,6 @@ namespace SocialCmd
 				}		
 			} else if (userExist) {					
 				switch (commandParts.Length) {		
-				case 0:
-					result.Value = "Command cannot be empty";
-					result.Success = false;
-					break;
 				case 1:						
 					//Here only the username has been typed - read posts for that user						
 					result.Value = currentUser.Read ();							
@@ -80,12 +74,16 @@ namespace SocialCmd
 					var keyExist = cmdKeys.TryGetValue (key, out currentKey);						
 					if (keyExist && currentKey == CmdKey.PrintWall) {								
 						result.Value  = currentUser.WriteToWall ();							
+					}else {
+						//ask for another command						
+						result.Value = "Command not recognised.";
+						result.Success = false;
 					}							
 					break;						
 				}					
 			}else {					
 				//ask for another command					
-				result.Value ="User does not exist";
+				result.Value = enteredCommand.Trim().Length > 0 ? "User does not exist" : "Command cannot be empty";
 				result.Success = false;
 			}
 			return result;
