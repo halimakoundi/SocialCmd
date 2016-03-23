@@ -39,6 +39,7 @@
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\CmdKey.cs" />
     <Compile Include="Domain\QualifiedBoolean.cs" />
+    <Compile Include="Domain\Commands.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

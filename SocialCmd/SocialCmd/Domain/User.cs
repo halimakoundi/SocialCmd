@@ -42,7 +42,7 @@ namespace SocialCmd
 		/// <summary>
 		/// Writes to wall.
 		/// </summary>
-		/// <returns>Writes to the wall,the list of posts of the user, and the followed users ordered by post date.</returns>
+		/// <returns>returns the list of posts of the user, and the followed users ordered by post date.</returns>
 		public string WriteToWall(){
 			var messages = string.Empty;
 			var postsList = new List<Post> ();

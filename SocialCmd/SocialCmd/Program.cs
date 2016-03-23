@@ -95,9 +95,7 @@ namespace SocialCmd
 		}
 
 		private static void InitialiseApplication(){
-			cmdKeys.Add("->", CmdKey.Post);
-			cmdKeys.Add("follows", CmdKey.Follow);
-			cmdKeys.Add("wall", CmdKey.PrintWall);
+			cmdKeys = Settings.ValidCommands ();
 		}
 
 		private static void ApplicationError(String message){
