@@ -41,39 +41,28 @@ namespace SocialCmd
 
 				if (keyExist) {						
 					if (currentKey == CmdKey.Post) {
-						if (!userExist) {
-							currentUser = new User(userName);
-							appUsers.Add (currentUser.UserName, currentUser);
-						}
-						currentUser.Post (enteredCommand.Split (new string[]{ key }, StringSplitOptions.RemoveEmptyEntries) [1]);
-
-					}else if (currentKey == CmdKey.Follow) {							
-						User userToFollow;
+						var message = enteredCommand.Split (new string[]{ key }, StringSplitOptions.RemoveEmptyEntries) [1];
+						result = SocialCmdApi.PostMessageToUser (userName,message );
+					}else if (currentKey == CmdKey.Follow) {	
 						var userNameToFollow = commandParts[2].ToLower ();
-						var userToFollowExists = appUsers.TryGetValue (userNameToFollow, out userToFollow);							
-						if (userToFollowExists && userToFollow != null) {								
-							currentUser.Follow (userToFollow);
-						} else {				
-							result.Value = "User to follow does not exist.";
-							result.Success = false;
-						}
+						result = SocialCmdApi.UserFollowAnotherUser (userName, userNameToFollow );
 					}
 				} else {
 					//ask for another command						
 					result.Value = "Command not recognised.";
 					result.Success = false;
 				}		
-			} else if (userExist) {					
+			} else {					
 				switch (commandParts.Length) {		
 				case 1:						
-					//Here only the username has been typed - read posts for that user						
-					result.Value = currentUser.Read ();							
+					//Here only the username has been typed - read posts for that user
+					result = SocialCmdApi.ReadUserPosts (userName);
 					break;						
 				case 2:		
 					var key = commandParts [1].ToLower ();
 					var keyExist = cmdKeys.TryGetValue (key, out currentKey);						
 					if (keyExist && currentKey == CmdKey.PrintWall) {								
-						result.Value  = currentUser.WriteToWall ();							
+						result = SocialCmdApi.PrintUserWall (userName);						
 					}else {
 						//ask for another command						
 						result.Value = "Command not recognised.";
@@ -81,10 +70,6 @@ namespace SocialCmd
 					}							
 					break;						
 				}					
-			}else {					
-				//ask for another command					
-				result.Value = enteredCommand.Trim().Length > 0 ? "User does not exist" : "Command cannot be empty";
-				result.Success = false;
 			}
 			return result;
 		}

@@ -25,6 +25,7 @@ namespace SocialCmd
 			return _Instance.Commands;
 		}
 
+
 		public static Dictionary<String, CmdKey> ValidCommands(Dictionary<String,CmdKey> commands){
 			if (_Instance == null) {
 				_Instance = new Settings (commands);
