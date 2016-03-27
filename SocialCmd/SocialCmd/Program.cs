@@ -6,7 +6,6 @@ namespace SocialCmd
 {
 	class MainClass
 	{
-		static Dictionary<String, User> appUsers = new Dictionary<String, User> ();
 		static Dictionary<String,CmdKey> cmdKeys = new Dictionary<String,CmdKey>();
 
 		public static void Main (string[] args)

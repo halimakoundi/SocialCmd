@@ -64,8 +64,12 @@ namespace SocialCmd
 			QualifiedBoolean result = new QualifiedBoolean();
 			User user;
 			UserExists (userName, out  user, out result);
-			if (user != null)
+			if (user != null) {
 				result.Value = user.Read ();
+			}else {
+				result.Value = "User does not exist.";
+				result.Success = false;	
+			}
 			return result;
 		}
 
@@ -73,8 +77,12 @@ namespace SocialCmd
 			QualifiedBoolean result = new QualifiedBoolean();
 			User user;
 			var userExist = UserExists (userName, out  user, out result);
-			if (userExist && user != null)
+			if (userExist && user != null) {
 				result.Value = user.WriteToWall ();
+			}else {
+				result.Value = "User does not exist.";
+				result.Success = false;	
+			}
 			return result;
 		}
 
@@ -89,7 +97,7 @@ namespace SocialCmd
 			if (userExist && usertoFollowExist && user != null && userToFollow != null) {
 				user.Follow (userToFollow);
 			} else {
-				result.Value = "Can not follow user, a problem occured.";
+				result.Value = string.Format("User {0} does not exist",(!usertoFollowExist ? "to follow" : ""));
 				result.Success = false;
 			}
 			return result;
