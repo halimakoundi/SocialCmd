@@ -10,11 +10,14 @@ namespace SocialCmd
 		public static QualifiedBoolean ExecuteCommandAndReturnResult (Dictionary<String,CmdKey> cmdKeys, string enteredCommand)
 		{
 			QualifiedBoolean result = new QualifiedBoolean ();
+			if (string.IsNullOrEmpty(enteredCommand))
+				throw new Exception ("The command cannot be empty.");
 			//getting the number of words in the entered command considering the user name cannot contain spaces				
 			var commandParts = enteredCommand.Trim ().Split (' ');
 			var userName = commandParts [0].ToLower ();
 			var key = string.Empty;
 			CmdKey currentKey = 0;
+
 			if (commandParts.Length == 1) {
 				//Here only the username has been typed - read posts for that user
 				currentKey = CmdKey.Read;
@@ -25,8 +28,8 @@ namespace SocialCmd
 			}
 			switch (currentKey) {
 			case CmdKey.Post:						
-				var message = enteredCommand.Split (new string[]{ key }, StringSplitOptions.RemoveEmptyEntries) [1];						
-				result = SocialCmdApi.PostMessageToUser (userName, message);						
+				var message = enteredCommand.Split (new string[]{ key },StringSplitOptions.None) [1];						
+				if(!string.IsNullOrEmpty(message))result = SocialCmdApi.PostMessageToUser (userName, message);						
 				break;
 			case CmdKey.Follow:						
 				var userNameToFollow = commandParts [2].ToLower ();						
