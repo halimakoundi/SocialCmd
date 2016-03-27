@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="PostTests.cs" />
     <Compile Include="UserTests.cs" />
+    <Compile Include="SocialCmdApiTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

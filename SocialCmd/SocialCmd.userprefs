@@ -1,1 +1,43 @@
-﻿<Properties StartupItem="SocialCmd/SocialCmd.csproj" />
+﻿<Properties StartupItem="SocialCmd/SocialCmd.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SocialCmdTest/PostTests.cs">
+    <Files>
+      <File FileName="SocialCmd/Program.cs" Line="8" Column="3" />
+      <File FileName="SocialCmd/Domain/Api/SocialCmdApi.cs" Line="11" Column="32" />
+      <File FileName="SocialCmdTest/SocialCmdApiTest.cs" Line="1" Column="1" />
+      <File FileName="SocialCmdTest/PostTests.cs" Line="11" Column="3" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SocialCmd" expanded="True">
+            <Node name="SocialCmd" expanded="True">
+              <Node name="Domain" expanded="True">
+                <Node name="Api" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="SocialCmdTest" expanded="True">
+              <Node name="PostTests.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="SocialCmd" expanded="True">
+            <Node name="SocialCmdTest" expanded="True">
+              <Node name="SocialCmdTest" expanded="True" selected="True">
+                <Node name="PostTests" expanded="True" />
+                <Node name="UserTests" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
