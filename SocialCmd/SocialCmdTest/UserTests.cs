@@ -51,8 +51,8 @@ namespace SocialCmdTest
 			var bobPost = new Post (userBob.UserName, "Thank God it's Friday !");
 			userBob.Post (bobPost);
 
-			//wait 10 seconds before posting new message
-			System.Threading.Thread.Sleep(10000);
+			//wait 5 seconds before posting new message
+			System.Threading.Thread.Sleep(5000);
 			var newPost = new Post(user.UserName, "This is a great day :-) ");
 			user.Post (newPost);
 

@@ -4,7 +4,7 @@ namespace SocialCmd
 {
 	public enum CmdKey
 	{
-		Post = 0,
+		Post = 5,
 		Read = 10,
 		Follow = 20,
 		PrintWall = 30

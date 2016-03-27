@@ -37,6 +37,9 @@ namespace SocialCmdTest
 			Assert.IsTrue (result.Success);
 			result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "ReadTestUser");
 			Assert.IsTrue (result.Success);
+			cmdKeys.Add("read", CmdKey.Read);
+			result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "TestUser read");
+			Assert.IsTrue(result.Success);
 		}
 
 		[Test ()]
