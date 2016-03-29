@@ -66,9 +66,6 @@ namespace SocialCmd
 			UserExists (userName, out  user, out result);
 			if (user != null) {
 				result.Value = user.Read ();
-			} else {
-				result.Value = "User does not exist.";
-				result.Success = false;	
 			}
 			return result;
 		}
@@ -80,10 +77,7 @@ namespace SocialCmd
 			var userExist = UserExists (userName, out  user, out result);
 			if (userExist && user != null) {
 				result.Value = user.WriteToWall ();
-			} else {
-				result.Value = "User does not exist.";
-				result.Success = false;	
-			}
+			} 
 			return result;
 		}
 
@@ -99,7 +93,7 @@ namespace SocialCmd
 			if (userExist && usertoFollowExist && user != null && userToFollow != null) {
 				user.Follow (userToFollow);
 			} else {
-				result.Value = string.Format ("User {0} does not exist", (!usertoFollowExist ? "to follow" : ""));
+				result.Value = string.Format ("User{0} does not exist", (!usertoFollowExist ? " to follow" : ""));
 				result.Success = false;
 			}
 			return result;
