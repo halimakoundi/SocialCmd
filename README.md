@@ -2,7 +2,9 @@
 A console-based social networking application
 
 # To run the application : 
+
 1- Download the SocialCmd.exe file from the "/build" folder into your computer
+
 2- On windows :
   - open the command line prompt and change directory to the directory where the exe is (or double click on the exe file, this should start the console application)
   - in the command prompt, type the name of the exe (here SocialCmd.exe if you have not renamed it) then press enter
