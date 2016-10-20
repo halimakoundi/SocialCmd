@@ -10,8 +10,8 @@ namespace SocialCmdTest
 	{
 		static Dictionary<String,CmdKey> cmdKeys = new Dictionary<String,CmdKey>();
 
-		[TestFixtureSetUp()]
-		public void initialiseTestFixture(){
+		[SetUp()]
+		public void InitialiseTestFixture(){
 			cmdKeys = Settings.ValidCommands ();
 		}
 		

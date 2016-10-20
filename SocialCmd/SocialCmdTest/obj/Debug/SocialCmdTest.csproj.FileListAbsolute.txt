@@ -1,0 +1,9 @@
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\SocialCmdTest.dll
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\SocialCmdTest.pdb
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\nunit.framework.dll
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\SocialCmd.exe
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\SocialCmd.pdb
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\nunit.framework.xml
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\obj\Debug\SocialCmdTest.csprojResolveAssemblyReference.cache
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\obj\Debug\SocialCmdTest.dll
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\obj\Debug\SocialCmdTest.pdb

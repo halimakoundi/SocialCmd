@@ -4,10 +4,10 @@ using SocialCmd;
 
 namespace SocialCmdTest
 {
-	[TestFixture ()]
+	[TestFixture]
 	public class PostTests
 	{
-		[Test ()]
+		[Test]
 		public void TimelinePostDateTest()
 		{
 			var newPost = new Post ("Test User", "new Post test");
@@ -27,8 +27,6 @@ namespace SocialCmdTest
 			Assert.AreEqual ("new Post test (2 minutes ago)" + Environment.NewLine, newPost.ToString());
 */
 		}
-
-
 
 	}
 }
