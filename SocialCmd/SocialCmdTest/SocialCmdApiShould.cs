@@ -34,7 +34,6 @@ namespace SocialCmdTest
 
             _socialCmdApp.Execute(commandAsAString);
 
-
             Received.InOrder(() =>
             {
                 _parser.Received().Parse(commandAsAString);

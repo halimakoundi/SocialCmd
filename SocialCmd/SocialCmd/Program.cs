@@ -1,49 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SocialCmd
 {
     class MainClass
     {
         static Dictionary<string, CmdKey> cmdKeys = new Dictionary<string, CmdKey>();
+        private static Console _console;
 
         public static void Main(string[] args)
         {
             try
             {
-                InitialiseApplication();
+                cmdKeys = Settings.ValidCommands();
             }
             catch (Exception ex)
             {
-                ApplicationError("Initialising application failed. " + Environment.NewLine + ex.Message);
+                _console.ApplicationError("Initialising application failed. " + Environment.NewLine + ex.Message);
             }
             do
             {
                 try
                 {
-                    var enteredCommand = PromptUserForCommand();
+                    _console = new Console();
+                    var enteredCommand = _console.PromptUserForCommand();
                     var result = ExecuteCommandAndReturnResult(enteredCommand);
-                    PrintResult(result);
+                    _console.PrintResult(result);
                 }
                 catch (Exception ex)
                 {
-                    ApplicationError(ex.Message);
+                    _console.ApplicationError(ex.Message);
                 }
             } while (true);
 
-        }
-
-        private static void PrintResult(QualifiedBoolean result)
-        {
-            if (result.Success)
-            {
-                Console.WriteLine(result.Value);
-            }
-            else
-            {
-                ApplicationError(result.Value);
-            }
         }
 
         private static QualifiedBoolean ExecuteCommandAndReturnResult(string enteredCommand)
@@ -51,22 +40,5 @@ namespace SocialCmd
 
             return SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, enteredCommand);
         }
-
-        private static string PromptUserForCommand()
-        {
-            Console.Write("> ");
-            return Console.ReadLine().Trim();
-        }
-
-        private static void InitialiseApplication()
-        {
-            cmdKeys = Settings.ValidCommands();
-        }
-
-        private static void ApplicationError(String message)
-        {
-            Console.WriteLine("A problem occured : " + message);
-        }
-
     }
 }
