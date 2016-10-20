@@ -16,7 +16,7 @@ namespace SocialCmd
             }
             catch (Exception ex)
             {
-                _console.ApplicationError("Initialising application failed. " + Environment.NewLine + ex.Message);
+                _console.PrintLine("Initialising application failed. " + Environment.NewLine + ex.Message);
             }
             do
             {
@@ -29,7 +29,7 @@ namespace SocialCmd
                 }
                 catch (Exception ex)
                 {
-                    _console.ApplicationError(ex.Message);
+                    _console.PrintLine(ex.Message);
                 }
             } while (true);
 

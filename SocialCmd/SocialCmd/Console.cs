@@ -10,7 +10,7 @@ namespace SocialCmd
             return System.Console.ReadLine().Trim();
         }
 
-        public void ApplicationError(String message)
+        public void PrintLine(String message)
         {
             System.Console.WriteLine("A problem occured : " + message);
         }
@@ -20,10 +20,6 @@ namespace SocialCmd
             throw new NotImplementedException();
         }
 
-        public void PrintLine(string message)
-        {
-            throw new NotImplementedException();
-        }
 
         public void PrintResult(QualifiedBoolean result)
         {
@@ -33,7 +29,7 @@ namespace SocialCmd
             }
             else
             {
-                ApplicationError(result.Value);
+                PrintLine(result.Value);
             }
         }
     }
