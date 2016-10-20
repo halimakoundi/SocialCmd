@@ -7,3 +7,5 @@ C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin
 C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\obj\Debug\SocialCmdTest.csprojResolveAssemblyReference.cache
 C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\obj\Debug\SocialCmdTest.dll
 C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\obj\Debug\SocialCmdTest.pdb
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\NSubstitute.dll
+C:\Users\Halima\Documents\GitHub\SocialCmd\SocialCmd\SocialCmd\SocialCmdTest\bin\Debug\NSubstitute.xml

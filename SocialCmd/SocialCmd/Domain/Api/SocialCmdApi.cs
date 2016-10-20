@@ -5,7 +5,15 @@ namespace SocialCmd
 {
     public class SocialCmdApi
     {
+        private readonly CommandParser _parser;
+        private readonly IConsole _console;
         private static Dictionary<String, User> appUsers = new Dictionary<String, User>();
+
+        public SocialCmdApi(CommandParser parser, IConsole console)
+        {
+            _parser = parser;
+            _console = console;
+        }
 
         public static QualifiedBoolean ExecuteCommandAndReturnResult(Dictionary<String, CmdKey> cmdKeys, string enteredCommand)
         {
@@ -122,6 +130,12 @@ namespace SocialCmd
                 result.Success = false;
             }
             return userExist;
+        }
+
+        public void Execute(string commamd)
+        {
+            var postCommand = _parser.Parse(commamd);
+            postCommand.Execute();
         }
     }
 }

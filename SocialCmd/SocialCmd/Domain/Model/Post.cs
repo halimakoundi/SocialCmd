@@ -4,13 +4,21 @@ namespace SocialCmd
 {
 	public class Post
 	{
-		public Post (string userName, string message)
+        private string v;
+
+        public Post (string userName, string message)
 		{
 			this.UserName = userName;
 			this.Message = message;
 			this.DatePosted = DateTime.Now;
 		}
-		public string UserName{ get;}
+
+        public Post(string v)
+        {
+            this.v = v;
+        }
+
+        public string UserName{ get;}
 		public string Message{ get;}
 		public DateTime DatePosted{ get;}
 
