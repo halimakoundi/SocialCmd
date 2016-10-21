@@ -12,28 +12,26 @@ namespace SocialCmd
             string enteredCommand)
         {
             EnsureIsValid(enteredCommand);
-            
+
             var commandParts = CommandPartsFrom(enteredCommand);
             var userName = UserNameFrom(commandParts);
             var userNameToFollow = UserNameToFollowFrom(commandParts);
 
             var key = KeyFrom(commandParts);
             var commandKey = CommandKeyFrom(cmdKeys, commandParts, key);
+            var message = MessageFrom(enteredCommand, key);
 
-            return ExecuteCommandBy(commandKey, enteredCommand, key, userName, userNameToFollow);
+            return ExecuteCommandBy(commandKey, userName, message, userNameToFollow);
         }
 
-        private static QualifiedBoolean ExecuteCommandBy(CmdKey commandKey, string enteredCommand, string key, string userName, string userNameToFollow)
+        private static QualifiedBoolean ExecuteCommandBy(CmdKey commandKey, string userName, string message,
+            string userNameToFollow)
         {
             var result = new QualifiedBoolean();
             switch (commandKey)
             {
                 case CmdKey.Post:
-                    var message = enteredCommand.Split(new[] {key}, StringSplitOptions.None)[1];
-                    if (!string.IsNullOrEmpty(message))
-                    {
-                        result = PostMessageToUser(userName, message);
-                    }
+                    result = PostMessageToUser(userName, message);
                     break;
                 case CmdKey.Follow:
                     result = UserFollowAnotherUser(userName, userNameToFollow);
@@ -45,11 +43,27 @@ namespace SocialCmd
                     result = PrintUserWall(userName);
                     break;
                 default:
-                    result.Value = "Command not recognised.";
-                    result.Success = false;
+                    result = SkipInvalidCommand();
                     break;
             }
             return result;
+        }
+
+        private static QualifiedBoolean SkipInvalidCommand()
+        {
+            return new QualifiedBoolean
+            {
+                Value = "Command not recognised.",
+                Success = false
+            };
+        }
+
+        private static string MessageFrom(string enteredCommand, string key)
+        {
+            var userInputs = enteredCommand.Split(new[] { key }, StringSplitOptions.None);
+            return userInputs.Length > 1 
+                ? userInputs[1] 
+                : string.Empty;
         }
 
         private static CmdKey CommandKeyFrom(Dictionary<string, CmdKey> cmdKeys, string[] commandParts, string key)
@@ -57,7 +71,6 @@ namespace SocialCmd
             CmdKey currentKey = 0;
             if (IsReadCommand(commandParts))
             {
-                //Here only the username has been typed - read posts for that user
                 currentKey = CmdKey.Read;
             }
             if (commandParts.Length >= 2)
@@ -69,12 +82,9 @@ namespace SocialCmd
 
         private static string KeyFrom(string[] commandParts)
         {
-            var key = string.Empty;
-            if (commandParts.Length >= 2)
-            {
-                key = commandParts[1].ToLower();
-            }
-            return key;
+            return commandParts.Length >= 2
+                ? commandParts[1].ToLower()
+                : string.Empty;
         }
 
         private static bool IsReadCommand(string[] commandParts)
@@ -84,7 +94,7 @@ namespace SocialCmd
 
         private static string UserNameToFollowFrom(string[] commandParts)
         {
-            return commandParts.Length > 2 ? 
+            return commandParts.Length > 2 ?
                 commandParts[2].ToLower() : string.Empty;
         }
 
@@ -106,11 +116,16 @@ namespace SocialCmd
 
         public static QualifiedBoolean PostMessageToUser(string userName, string message)
         {
-            var result = new QualifiedBoolean();
             User user;
+            QualifiedBoolean result;
             UserExists(userName, out user, out result, true);
-            if (user != null)
-                user.Post(message);
+
+            if ((user == null) || (message == null))
+            {
+                return result;
+            }
+            user.Post(message);
+
             return result;
         }
 
