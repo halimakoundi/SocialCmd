@@ -27,7 +27,7 @@ namespace SocialCmd
             }
             catch (Exception ex)
             {
-                _console.PrintLine(ex.Message);
+                _console.PrintError(ex.Message);
             }
         }
 
@@ -39,7 +39,7 @@ namespace SocialCmd
             }
             catch (Exception ex)
             {
-                _console.PrintLine("Initialising application failed. " + Environment.NewLine + ex.Message);
+                _console.PrintError("Initialising application failed. " + Environment.NewLine + ex.Message);
             }
         }
     }

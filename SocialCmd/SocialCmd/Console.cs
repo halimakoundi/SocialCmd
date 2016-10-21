@@ -2,35 +2,43 @@ using System;
 
 namespace SocialCmd
 {
-    class Console:IConsole
+    class Console : IConsole
     {
+        private const string PROMPT = "> ";
+        private const string A_PROBLEM_OCCURED = "A problem occured : ";
+
         public string PromptUserForCommand()
         {
-            System.Console.Write("> ");
-            return System.Console.ReadLine().Trim();
+            Write(PROMPT);
+            return ReadUserInput();
         }
 
-        public void PrintLine(String message)
+        public string ReadUserInput()
         {
-            System.Console.WriteLine("A problem occured : " + message);
+            var userInput = System.Console.ReadLine();
+            return userInput?.Trim() ?? string.Empty;
         }
 
-        public string ReadLine()
+        public void PrintError(string message)
         {
-            throw new NotImplementedException();
+            Write(A_PROBLEM_OCCURED + message);
         }
-
 
         public void PrintResult(QualifiedBoolean result)
         {
             if (result.Success)
             {
-                System.Console.WriteLine(result.Value);
+                Write(result.Value);
             }
             else
             {
-                PrintLine(result.Value);
+                PrintError(result.Value);
             }
+        }
+
+        private static void Write(string message)
+        {
+            System.Console.Write(message);
         }
     }
 }
