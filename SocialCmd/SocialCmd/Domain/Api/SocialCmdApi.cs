@@ -6,49 +6,36 @@ namespace SocialCmd
     public class SocialCmdApi
     {
         private static readonly Dictionary<string, User> appUsers = new Dictionary<string, User>();
-        private readonly IConsole _console;
-        private readonly CommandParser _parser;
-
-        public SocialCmdApi(CommandParser parser, IConsole console)
-        {
-            _parser = parser;
-            _console = console;
-        }
 
         public static QualifiedBoolean ExecuteCommandAndReturnResult(
             Dictionary<string, CmdKey> cmdKeys,
             string enteredCommand)
         {
-            var result = new QualifiedBoolean();
-            if (string.IsNullOrEmpty(enteredCommand))
-                throw new Exception("The command cannot be empty.");
-            //getting the number of words in the entered command considering the user name cannot contain spaces				
-            var commandParts = enteredCommand.Trim().Split(' ');
-            var userName = commandParts[0].ToLower();
-            var key = string.Empty;
-            CmdKey currentKey = 0;
+            EnsureIsValid(enteredCommand);
+            
+            var commandParts = CommandPartsFrom(enteredCommand);
+            var userName = UserNameFrom(commandParts);
+            var userNameToFollow = UserNameToFollowFrom(commandParts);
 
-            if (commandParts.Length == 1)
-            {
-                //Here only the username has been typed - read posts for that user
-                currentKey = CmdKey.Read;
-            }
-            if (commandParts.Length >= 2)
-            {
-                key = commandParts[1].ToLower();
-                cmdKeys.TryGetValue(key, out currentKey);
-            }
-            switch (currentKey)
+            var key = KeyFrom(commandParts);
+            var commandKey = CommandKeyFrom(cmdKeys, commandParts, key);
+
+            return ExecuteCommandBy(commandKey, enteredCommand, key, userName, userNameToFollow);
+        }
+
+        private static QualifiedBoolean ExecuteCommandBy(CmdKey commandKey, string enteredCommand, string key, string userName, string userNameToFollow)
+        {
+            var result = new QualifiedBoolean();
+            switch (commandKey)
             {
                 case CmdKey.Post:
-                    var message = enteredCommand.Split(new[]{key}, StringSplitOptions.None)[1];
+                    var message = enteredCommand.Split(new[] {key}, StringSplitOptions.None)[1];
                     if (!string.IsNullOrEmpty(message))
                     {
                         result = PostMessageToUser(userName, message);
                     }
                     break;
                 case CmdKey.Follow:
-                    var userNameToFollow = commandParts[2].ToLower();
                     result = UserFollowAnotherUser(userName, userNameToFollow);
                     break;
                 case CmdKey.Read:
@@ -63,6 +50,58 @@ namespace SocialCmd
                     break;
             }
             return result;
+        }
+
+        private static CmdKey CommandKeyFrom(Dictionary<string, CmdKey> cmdKeys, string[] commandParts, string key)
+        {
+            CmdKey currentKey = 0;
+            if (IsReadCommand(commandParts))
+            {
+                //Here only the username has been typed - read posts for that user
+                currentKey = CmdKey.Read;
+            }
+            if (commandParts.Length >= 2)
+            {
+                cmdKeys.TryGetValue(key, out currentKey);
+            }
+            return currentKey;
+        }
+
+        private static string KeyFrom(string[] commandParts)
+        {
+            var key = string.Empty;
+            if (commandParts.Length >= 2)
+            {
+                key = commandParts[1].ToLower();
+            }
+            return key;
+        }
+
+        private static bool IsReadCommand(string[] commandParts)
+        {
+            return commandParts.Length == 1;
+        }
+
+        private static string UserNameToFollowFrom(string[] commandParts)
+        {
+            return commandParts.Length > 2 ? 
+                commandParts[2].ToLower() : string.Empty;
+        }
+
+        private static string UserNameFrom(string[] commandParts)
+        {
+            return commandParts[0].ToLower();
+        }
+
+        private static string[] CommandPartsFrom(string enteredCommand)
+        {
+            return enteredCommand.Trim().Split(' ');
+        }
+
+        private static void EnsureIsValid(string enteredCommand)
+        {
+            if (string.IsNullOrEmpty(enteredCommand))
+                throw new Exception("The command cannot be empty.");
         }
 
         public static QualifiedBoolean PostMessageToUser(string userName, string message)
