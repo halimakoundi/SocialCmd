@@ -5,9 +5,9 @@ namespace SocialCmd
 {
     public class SocialCmdApi
     {
-        private readonly CommandParser _parser;
+        private static readonly Dictionary<string, User> appUsers = new Dictionary<string, User>();
         private readonly IConsole _console;
-        private static Dictionary<String, User> appUsers = new Dictionary<String, User>();
+        private readonly CommandParser _parser;
 
         public SocialCmdApi(CommandParser parser, IConsole console)
         {
@@ -15,9 +15,11 @@ namespace SocialCmd
             _console = console;
         }
 
-        public static QualifiedBoolean ExecuteCommandAndReturnResult(Dictionary<String, CmdKey> cmdKeys, string enteredCommand)
+        public static QualifiedBoolean ExecuteCommandAndReturnResult(
+            Dictionary<string, CmdKey> cmdKeys,
+            string enteredCommand)
         {
-            QualifiedBoolean result = new QualifiedBoolean();
+            var result = new QualifiedBoolean();
             if (string.IsNullOrEmpty(enteredCommand))
                 throw new Exception("The command cannot be empty.");
             //getting the number of words in the entered command considering the user name cannot contain spaces				
@@ -39,18 +41,21 @@ namespace SocialCmd
             switch (currentKey)
             {
                 case CmdKey.Post:
-                    var message = enteredCommand.Split(new string[] { key }, StringSplitOptions.None)[1];
-                    if (!string.IsNullOrEmpty(message)) result = SocialCmdApi.PostMessageToUser(userName, message);
+                    var message = enteredCommand.Split(new[]{key}, StringSplitOptions.None)[1];
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        result = PostMessageToUser(userName, message);
+                    }
                     break;
                 case CmdKey.Follow:
                     var userNameToFollow = commandParts[2].ToLower();
-                    result = SocialCmdApi.UserFollowAnotherUser(userName, userNameToFollow);
+                    result = UserFollowAnotherUser(userName, userNameToFollow);
                     break;
                 case CmdKey.Read:
-                    result = SocialCmdApi.ReadUserPosts(userName);
+                    result = ReadUserPosts(userName);
                     break;
                 case CmdKey.PrintWall:
-                    result = SocialCmdApi.PrintUserWall(userName);
+                    result = PrintUserWall(userName);
                     break;
                 default:
                     result.Value = "Command not recognised.";
@@ -60,9 +65,9 @@ namespace SocialCmd
             return result;
         }
 
-        public static QualifiedBoolean PostMessageToUser(String userName, String message)
+        public static QualifiedBoolean PostMessageToUser(string userName, string message)
         {
-            QualifiedBoolean result = new QualifiedBoolean();
+            var result = new QualifiedBoolean();
             User user;
             UserExists(userName, out user, out result, true);
             if (user != null)
@@ -70,9 +75,9 @@ namespace SocialCmd
             return result;
         }
 
-        public static QualifiedBoolean ReadUserPosts(String userName)
+        public static QualifiedBoolean ReadUserPosts(string userName)
         {
-            QualifiedBoolean result = new QualifiedBoolean();
+            var result = new QualifiedBoolean();
             User user;
             UserExists(userName, out user, out result);
             if (user != null)
@@ -82,9 +87,9 @@ namespace SocialCmd
             return result;
         }
 
-        public static QualifiedBoolean PrintUserWall(String userName)
+        public static QualifiedBoolean PrintUserWall(string userName)
         {
-            QualifiedBoolean result = new QualifiedBoolean();
+            var result = new QualifiedBoolean();
             User user;
             var userExist = UserExists(userName, out user, out result);
             if (userExist && user != null)
@@ -94,9 +99,9 @@ namespace SocialCmd
             return result;
         }
 
-        public static QualifiedBoolean UserFollowAnotherUser(String userName, String userNameToFollow)
+        public static QualifiedBoolean UserFollowAnotherUser(string userName, string userNameToFollow)
         {
-            QualifiedBoolean result = new QualifiedBoolean();
+            var result = new QualifiedBoolean();
             User user;
             var userExist = UserExists(userName, out user, out result);
 
@@ -109,13 +114,14 @@ namespace SocialCmd
             }
             else
             {
-                result.Value = string.Format("User{0} does not exist", (!usertoFollowExist ? " to follow" : ""));
+                result.Value = string.Format("User{0} does not exist", !usertoFollowExist ? " to follow" : "");
                 result.Success = false;
             }
             return result;
         }
 
-        public static Boolean UserExists(String userName, out User user, out QualifiedBoolean result, Boolean createIfNotExist = false)
+        public static bool UserExists(string userName, out User user, out QualifiedBoolean result,
+            bool createIfNotExist = false)
         {
             result = new QualifiedBoolean();
             var userExist = appUsers.TryGetValue(userName, out user);
@@ -131,12 +137,5 @@ namespace SocialCmd
             }
             return userExist;
         }
-
-        public void Execute(string commamd)
-        {
-            var postCommand = _parser.Parse(commamd);
-            postCommand.Execute();
-        }
     }
 }
-

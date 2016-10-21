@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PostTests.cs" />
-    <Compile Include="PublishUserTimelineFeature.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="SocialCmdApiShould.cs" />
   </ItemGroup>

@@ -9,92 +9,116 @@ namespace SocialCmdTest
     [TestFixture()]
     public class SocialCmdApiShould
     {
-        static Dictionary<String, CmdKey> cmdKeys = new Dictionary<String, CmdKey>();
-        private CommandParser _parser;
-        private ICommand _command;
-        private IConsole _console;
-        private SocialCmdApi _socialCmdApp;
+        private Dictionary<String, CmdKey> _cmdKeys = new Dictionary<String, CmdKey>();
 
         [SetUp]
         public void InitialiseTestFixture()
         {
-            cmdKeys = Settings.ValidCommands();
-            _parser = Substitute.For<CommandParser>();
-            _console = Substitute.For<IConsole>();
-            _socialCmdApp = new SocialCmdApi(_parser, _console);
-
-            _command = Substitute.For<ICommand>();
+            _cmdKeys = Settings.ValidCommands();
         }
 
         [Test]
-        public void execute_post_command()
+        public void post_user_message()
         {
-            var commandAsAString = "Bob -> Damn! We lost!";
-            _parser.Parse(commandAsAString).Returns(_command);
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> This is a test message");
 
-            _socialCmdApp.Execute(commandAsAString);
-
-            Received.InOrder(() =>
-            {
-                _parser.Received().Parse(commandAsAString);
-                _command.Received().Execute();
-            });
-        }
-
-
-        [Test()]
-        public void ExecuteCommandAndReturnResult_PostTest()
-        {
-            var result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "TestUser = This is a test message");
-            Assert.IsFalse(result.Success);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "TestUser -> This is a test message");
-            Assert.IsTrue(result.Success);
-            cmdKeys.Add("=", CmdKey.Post);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "TestUser = This is a test message");
             Assert.IsTrue(result.Success);
         }
 
         [Test()]
-        public void ExecuteCommandAndReturnResult_ReadTest()
+        public void not_post_user_message_given_equals_key_isnot_defined()
         {
-            var result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "ReadTestUser ");
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser = This is a test message");
+
             Assert.IsFalse(result.Success);
-            //post a message to create test user
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "ReadTestUser -> This is a test message");
-            Assert.IsTrue(result.Success);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "ReadTestUser");
-            Assert.IsTrue(result.Success);
-            cmdKeys.Add("read", CmdKey.Read);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "TestUser read");
+        }
+
+        [Test]
+        public void post_user_message_given_equals_key_is_defined()
+        {
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> I am calling this only to create the user");
+            _cmdKeys.Add("=", CmdKey.Post);
+
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser = This is a test message");
+
             Assert.IsTrue(result.Success);
         }
 
         [Test()]
-        public void ExecuteCommandAndReturnResult_FollowTest()
+        public void not_read_messages_for_user_that_does_not_exist()
         {
-            var result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "FollowTestUser follows anotherUser ");
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "ReadTestUser ");
+
             Assert.IsFalse(result.Success);
-            //post messages to create test users
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "FollowTestUser -> This is a test message");
+        }
+
+        [Test]
+        public void read_messages_for_user()
+        {
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "ReadTestUser -> This is a test message");
             Assert.IsTrue(result.Success);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "anotherUser -> This is another test message");
+
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "ReadTestUser");
+
             Assert.IsTrue(result.Success);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "FollowTestUser follows anotherUser ");
+        }
+
+        [Test]
+        public  void read_user_messages()
+        {
+            _cmdKeys.Add("read", CmdKey.Read);
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> This is a test message");
+
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser read");
+
             Assert.IsTrue(result.Success);
+        }
+
+        [Test()]
+        public void allow_when_an_existing_user_follows_another_user()
+        {
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUser -> This is a test message");
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "anotherUser -> This is another test message");
+
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUser follows anotherUser ");
+
+            Assert.IsTrue(result.Success);
+        }
+
+        [Test]
+        public void not_add_follower_to_user_that_do_not_exist()
+        {
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUserThatDoNotExist follows anotherUser ");
+
+            Assert.IsFalse(result.Success);
         }
 
         [Test()]
         public void ExecuteCommandAndReturnResult_WallTest()
         {
-            var result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "WallTestUser wall");
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser -> I am calling this to create the user");
+
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser wall");
+
+            Assert.IsTrue(result.Success);
+
+        }
+
+        [Test]
+        public void not_print_wall_given_user_does_not_exist()
+        {
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUserDoesNotExist wall");
             Assert.IsFalse(result.Success);
-            //post messages to create test users
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "WallTestUser -> This is a test message");
-            Assert.IsTrue(result.Success);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "WallTestUser wall");
-            Assert.IsTrue(result.Success);
-            cmdKeys.Add("mur", CmdKey.PrintWall);
-            result = SocialCmdApi.ExecuteCommandAndReturnResult(cmdKeys, "WallTestUser mur");
+        }
+
+        [Test]
+        public void print_wall_when_mur_key_is_defined_and_used()
+        {
+            var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser -> This is a test message");
+            _cmdKeys.Add("mur", CmdKey.PrintWall);
+
+            result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser mur");
+
             Assert.IsTrue(result.Success);
         }
     }
