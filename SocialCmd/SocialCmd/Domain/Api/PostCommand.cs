@@ -5,18 +5,20 @@ namespace SocialCmd.Domain.Api
     {
         private readonly string _userName;
         private readonly string _message;
+        private UserRepository _userRepository;
 
-        public PostCommand(string userName, string message)
+        public PostCommand(string userName, string message, UserRepository userRepository)
         {
             _userName = userName;
             _message = message;
+            _userRepository = userRepository;
         }
 
         public QualifiedBoolean PostMessageToUser()
         {
             User user;
             QualifiedBoolean result;
-            new UserRepository().UserExists(_userName, out user, out result, true);
+            _userRepository.UserExists(_userName, out user, out result, true);
 
             if ((user == null) || (_message == null))
             {

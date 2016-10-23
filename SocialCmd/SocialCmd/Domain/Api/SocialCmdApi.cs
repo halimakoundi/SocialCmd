@@ -30,7 +30,7 @@ namespace SocialCmd.Domain.Api
             switch (commandDetails.CommandKey)
             {
                 case CmdKey.Post:
-                    var command = new PostCommand(commandDetails.UserName, commandDetails.Message);
+                    var command = new PostCommand(commandDetails.UserName, commandDetails.Message, _userRepository);
                     result = command.PostMessageToUser();
                     break;
                 case CmdKey.Follow:
