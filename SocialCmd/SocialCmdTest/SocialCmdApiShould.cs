@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using NSubstitute;
 using SocialCmd;
+using SocialCmd.Domain.Api;
 
 namespace SocialCmdTest
 {

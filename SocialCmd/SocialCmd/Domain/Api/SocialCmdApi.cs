@@ -13,68 +13,19 @@ namespace SocialCmd.Domain.Api
         {
             EnsureIsValid(enteredCommand);
 
-            var commandDetails = CommandDetailsFrom(cmdKeys, enteredCommand);
+            var details = CommadParser.CommandDetailsFrom(cmdKeys, enteredCommand);
 
-            return ExecuteCommandBy(commandDetails);
+            return ExecuteCommandWith(details);
         }
 
-        private static CommandDetails CommandDetailsFrom(Dictionary<string, CmdKey> cmdKeys, string enteredCommand)
-        {
-            var commandParts = CommandPartsFrom(enteredCommand);
-            var userName = UserNameFrom(commandParts);
-            var userNameToFollow = UserNameToFollowFrom(commandParts);
-
-            var key = KeyFrom(commandParts);
-            var commandKey = CommandKeyFrom(cmdKeys, commandParts, key);
-            var message = MessageFrom(enteredCommand, key);
-
-            var commandDetails = new CommandDetails(commandKey, userName, message, userNameToFollow);
-            return commandDetails;
-        }
-
-        public class CommandDetails
-        {
-            private CmdKey _commandKey;
-            private string _userName;
-            private string _message;
-            private string _userNameToFollow;
-
-            public CommandDetails(CmdKey commandKey, string userName, string message, string userNameToFollow)
-            {
-                _commandKey = commandKey;
-                _userName = userName;
-                _message = message;
-                _userNameToFollow = userNameToFollow;
-            }
-
-            public CmdKey CommandKey
-            {
-                get { return _commandKey; }
-            }
-
-            public string UserName
-            {
-                get { return _userName; }
-            }
-
-            public string Message
-            {
-                get { return _message; }
-            }
-
-            public string UserNameToFollow
-            {
-                get { return _userNameToFollow; }
-            }
-        }
-
-        private static QualifiedBoolean ExecuteCommandBy(CommandDetails commandDetails)
+        private static QualifiedBoolean ExecuteCommandWith(CommandDetails commandDetails)
         {
             QualifiedBoolean result;
             switch (commandDetails.CommandKey)
             {
                 case CmdKey.Post:
-                    result = PostMessageToUser(commandDetails.UserName, commandDetails.Message);
+                    var command = new PostCommand(commandDetails.UserName, commandDetails.Message);
+                    result = command.PostMessageToUser(commandDetails.UserName, commandDetails.Message);
                     break;
                 case CmdKey.Follow:
                     result = UserFollowAnotherUser(commandDetails.UserName, commandDetails.UserNameToFollow);
@@ -101,75 +52,10 @@ namespace SocialCmd.Domain.Api
             };
         }
 
-        private static string MessageFrom(string enteredCommand, string key)
-        {
-            var userInputs = enteredCommand.Split(new[] { key }, StringSplitOptions.None);
-            return userInputs.Length > 1 
-                ? userInputs[1] 
-                : string.Empty;
-        }
-
-        private static CmdKey CommandKeyFrom(Dictionary<string, CmdKey> cmdKeys, string[] commandParts, string key)
-        {
-            CmdKey currentKey = 0;
-            if (IsReadCommand(commandParts))
-            {
-                currentKey = CmdKey.Read;
-            }
-            if (commandParts.Length >= 2)
-            {
-                cmdKeys.TryGetValue(key, out currentKey);
-            }
-            return currentKey;
-        }
-
-        private static string KeyFrom(string[] commandParts)
-        {
-            return commandParts.Length >= 2
-                ? commandParts[1].ToLower()
-                : string.Empty;
-        }
-
-        private static bool IsReadCommand(string[] commandParts)
-        {
-            return commandParts.Length == 1;
-        }
-
-        private static string UserNameToFollowFrom(string[] commandParts)
-        {
-            return commandParts.Length > 2 ?
-                commandParts[2].ToLower() : string.Empty;
-        }
-
-        private static string UserNameFrom(string[] commandParts)
-        {
-            return commandParts[0].ToLower();
-        }
-
-        private static string[] CommandPartsFrom(string enteredCommand)
-        {
-            return enteredCommand.Trim().Split(' ');
-        }
-
         private static void EnsureIsValid(string enteredCommand)
         {
             if (string.IsNullOrEmpty(enteredCommand))
                 throw new Exception("The command cannot be empty.");
-        }
-
-        public static QualifiedBoolean PostMessageToUser(string userName, string message)
-        {
-            User user;
-            QualifiedBoolean result;
-            UserExists(userName, out user, out result, true);
-
-            if ((user == null) || (message == null))
-            {
-                return result;
-            }
-            user.Post(message);
-
-            return result;
         }
 
         public static QualifiedBoolean ReadUserPosts(string userName)
