@@ -2,37 +2,20 @@ namespace SocialCmd.Domain.Api
 {
     public class CommandDetails
     {
-        private CmdKey _commandKey;
-        private string _userName;
-        private string _message;
-        private string _userNameToFollow;
-
         public CommandDetails(CmdKey commandKey, string userName, string message, string userNameToFollow)
         {
-            _commandKey = commandKey;
-            _userName = userName;
-            _message = message;
-            _userNameToFollow = userNameToFollow;
+            CommandKey = commandKey;
+            UserName = userName;
+            Message = message;
+            UserNameToFollow = userNameToFollow;
         }
 
-        public CmdKey CommandKey
-        {
-            get { return _commandKey; }
-        }
+        public CmdKey CommandKey { get; }
 
-        public string UserName
-        {
-            get { return _userName; }
-        }
+        public string UserName { get; }
 
-        public string Message
-        {
-            get { return _message; }
-        }
+        public string Message { get; }
 
-        public string UserNameToFollow
-        {
-            get { return _userNameToFollow; }
-        }
+        public string UserNameToFollow { get; }
     }
 }

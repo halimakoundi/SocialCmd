@@ -16,7 +16,7 @@ namespace SocialCmd.Domain.Api
         {
             User user;
             QualifiedBoolean result;
-            SocialCmdApi.UserExists(_userName, out user, out result, true);
+            new UserRepository().UserExists(_userName, out user, out result, true);
 
             if ((user == null) || (_message == null))
             {

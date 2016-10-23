@@ -8,6 +8,7 @@ namespace SocialCmd
     {
         static Dictionary<string, CmdKey> _cmdKeys = new Dictionary<string, CmdKey>();
         private static readonly Console _console = new Console();
+        private static readonly UserRepository UserRepository = new UserRepository();
 
         public static void Main(string[] args)
         {
@@ -23,7 +24,7 @@ namespace SocialCmd
             try
             {
                 var enteredCommand = _console.PromptUserForCommand();
-                var result = SocialCmdApi.ExecuteCommandAndReturnResult(_cmdKeys, enteredCommand);
+                var result = new SocialCmdApi(UserRepository).ExecuteCommandAndReturnResult(_cmdKeys, enteredCommand);
                 _console.PrintResult(result);
             }
             catch (Exception ex)
