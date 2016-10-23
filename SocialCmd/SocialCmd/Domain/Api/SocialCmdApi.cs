@@ -13,6 +13,13 @@ namespace SocialCmd.Domain.Api
         {
             EnsureIsValid(enteredCommand);
 
+            var commandDetails = CommandDetailsFrom(cmdKeys, enteredCommand);
+
+            return ExecuteCommandBy(commandDetails);
+        }
+
+        private static CommandDetails CommandDetailsFrom(Dictionary<string, CmdKey> cmdKeys, string enteredCommand)
+        {
             var commandParts = CommandPartsFrom(enteredCommand);
             var userName = UserNameFrom(commandParts);
             var userNameToFollow = UserNameToFollowFrom(commandParts);
@@ -22,7 +29,7 @@ namespace SocialCmd.Domain.Api
             var message = MessageFrom(enteredCommand, key);
 
             var commandDetails = new CommandDetails(commandKey, userName, message, userNameToFollow);
-            return ExecuteCommandBy(commandDetails);
+            return commandDetails;
         }
 
         public class CommandDetails
