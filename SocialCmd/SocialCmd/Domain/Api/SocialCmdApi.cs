@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SocialCmd
+namespace SocialCmd.Domain.Api
 {
     public class SocialCmdApi
     {
-        private static readonly Dictionary<string, User> appUsers = new Dictionary<string, User>();
+        private static readonly Dictionary<string, User> AppUsers = new Dictionary<string, User>();
 
         public static QualifiedBoolean ExecuteCommandAndReturnResult(
             Dictionary<string, CmdKey> cmdKeys,
@@ -21,26 +21,62 @@ namespace SocialCmd
             var commandKey = CommandKeyFrom(cmdKeys, commandParts, key);
             var message = MessageFrom(enteredCommand, key);
 
-            return ExecuteCommandBy(commandKey, userName, message, userNameToFollow);
+            var commandDetails = new CommandDetails(commandKey, userName, message, userNameToFollow);
+            return ExecuteCommandBy(commandDetails);
         }
 
-        private static QualifiedBoolean ExecuteCommandBy(CmdKey commandKey, string userName, string message,
-            string userNameToFollow)
+        public class CommandDetails
         {
-            var result = new QualifiedBoolean();
-            switch (commandKey)
+            private CmdKey _commandKey;
+            private string _userName;
+            private string _message;
+            private string _userNameToFollow;
+
+            public CommandDetails(CmdKey commandKey, string userName, string message, string userNameToFollow)
+            {
+                _commandKey = commandKey;
+                _userName = userName;
+                _message = message;
+                _userNameToFollow = userNameToFollow;
+            }
+
+            public CmdKey CommandKey
+            {
+                get { return _commandKey; }
+            }
+
+            public string UserName
+            {
+                get { return _userName; }
+            }
+
+            public string Message
+            {
+                get { return _message; }
+            }
+
+            public string UserNameToFollow
+            {
+                get { return _userNameToFollow; }
+            }
+        }
+
+        private static QualifiedBoolean ExecuteCommandBy(CommandDetails commandDetails)
+        {
+            QualifiedBoolean result;
+            switch (commandDetails.CommandKey)
             {
                 case CmdKey.Post:
-                    result = PostMessageToUser(userName, message);
+                    result = PostMessageToUser(commandDetails.UserName, commandDetails.Message);
                     break;
                 case CmdKey.Follow:
-                    result = UserFollowAnotherUser(userName, userNameToFollow);
+                    result = UserFollowAnotherUser(commandDetails.UserName, commandDetails.UserNameToFollow);
                     break;
                 case CmdKey.Read:
-                    result = ReadUserPosts(userName);
+                    result = ReadUserPosts(commandDetails.UserName);
                     break;
                 case CmdKey.PrintWall:
-                    result = PrintUserWall(userName);
+                    result = PrintUserWall(commandDetails.UserName);
                     break;
                 default:
                     result = SkipInvalidCommand();
@@ -178,11 +214,11 @@ namespace SocialCmd
             bool createIfNotExist = false)
         {
             result = new QualifiedBoolean();
-            var userExist = appUsers.TryGetValue(userName, out user);
+            var userExist = AppUsers.TryGetValue(userName, out user);
             if (!userExist && createIfNotExist)
             {
                 user = new User(userName.ToLower());
-                appUsers.Add(user.UserName, user);
+                AppUsers.Add(user.UserName, user);
             }
             else if (!userExist)
             {

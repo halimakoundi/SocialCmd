@@ -34,9 +34,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandParser.cs" />
     <Compile Include="Console.cs" />
-    <Compile Include="ICommand.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
