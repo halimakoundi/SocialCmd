@@ -18,7 +18,7 @@ namespace SocialCmd.Domain.Api
 
         public QualifiedBoolean Execute()
         {
-            var user =_userRepository.UserBy(_userName) 
+            var user =_userRepository.FindUserBy(_userName) 
                      ?? _userRepository.CreateUserWith(_userName);
             user.Post(_message);
 

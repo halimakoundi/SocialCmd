@@ -67,7 +67,7 @@ namespace SocialCmd.Domain.Api
         public QualifiedBoolean ReadUserPosts(string userName)
         {
             var result = new QualifiedBoolean();
-            User user = _userRepository.UserBy(userName);
+            User user = _userRepository.FindUserBy(userName);
             result.Success = true;
             if (user != null)
             {
@@ -83,7 +83,7 @@ namespace SocialCmd.Domain.Api
         public QualifiedBoolean PrintUserWall(string userName)
         {
             var result = new QualifiedBoolean();
-            var userExist = _userRepository.UserBy(userName);
+            var userExist = _userRepository.FindUserBy(userName);
             if (userExist != null)
             {
                 result.Value = userExist.WriteToWall();
@@ -98,9 +98,9 @@ namespace SocialCmd.Domain.Api
         public QualifiedBoolean UserFollowAnotherUser(string userName, string userNameToFollow)
         {
             var result = new QualifiedBoolean();
-            var user = _userRepository.UserBy(userName);
+            var user = _userRepository.FindUserBy(userName);
 
-            var usertoFollow = _userRepository.UserBy(userNameToFollow);
+            var usertoFollow = _userRepository.FindUserBy(userNameToFollow);
 
             if (user != null && usertoFollow != null)
             {

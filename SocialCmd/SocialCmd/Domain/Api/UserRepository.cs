@@ -7,7 +7,7 @@ namespace SocialCmd.Domain.Api
     {
         private readonly Dictionary<string, User> _users = new Dictionary<string, User>();
 
-        public User UserBy(string userName)
+        public User FindUserBy(string userName)
         {
             User user;
             _users.TryGetValue(userName, out user);
