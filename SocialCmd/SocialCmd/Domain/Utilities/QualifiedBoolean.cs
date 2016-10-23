@@ -1,17 +1,18 @@
 ﻿using System;
+using static System.String;
 
 namespace SocialCmd
 {
 	public class QualifiedBoolean
 	{
-		public Boolean Success { get; set;}=true;
-		public String Value { get; set;}=String.Empty;
+		public bool Success { get; set;}=true;
+		public string Value { get; set;}=Empty;
 
-		public QualifiedBoolean (Boolean result)
+		public QualifiedBoolean (bool result)
 		{			
 			this.Success = result;
 		}
-		public QualifiedBoolean (Boolean result, string value)
+		public QualifiedBoolean (bool result, string value)
 		{			
 			this.Success = result;
 			this.Value = value;

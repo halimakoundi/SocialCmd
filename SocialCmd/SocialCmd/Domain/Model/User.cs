@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SocialCmd
+namespace SocialCmd.Domain.Model
 {
 	public class User
 	{
 		public User (string userName)
 		{
-			this.UserName = userName;
-			this.Posts = new List<Post> ();
-			this.Followings = new List<User> ();
+			UserName = userName;
+			Posts = new List<Post> ();
+			Followings = new List<User> ();
 		}
 		public string UserName { get;}
 		public List<Post> Posts { get;}
@@ -34,8 +33,8 @@ namespace SocialCmd
 		}
 
 		public void Follow(User user){
-			if (!(this.Followings.Where (x => x.UserName == user.UserName).Count() > 0)) {
-				this.Followings.Add (user);
+			if (!(Followings.Any(x => x.UserName == user.UserName))) {
+				Followings.Add (user);
 			}
 		}
 

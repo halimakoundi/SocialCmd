@@ -1,23 +1,26 @@
+using System.Collections.Generic;
+using SocialCmd.Domain.Model;
+
 namespace SocialCmd.Domain.Api
 {
     public class UserRepository
     {
-        public bool UserExists(string userName, out User user, out QualifiedBoolean result,
-            bool createIfNotExist = false)
+        public User UserBy(string userName)
         {
-            result = new QualifiedBoolean();
-            var userExist = SocialCmdApi.AppUsers.TryGetValue(userName, out user);
-            if (!userExist && createIfNotExist)
-            {
-                user = new User(userName.ToLower());
-                SocialCmdApi.AppUsers.Add(user.UserName, user);
-            }
-            else if (!userExist)
-            {
-                result.Value = "User does not exist.";
-                result.Success = false;
-            }
-            return userExist;
+            User user;
+            AppUsers.TryGetValue(userName, out user);
+
+            return user;
         }
+
+        public User CreateUserWith(string userName)
+        {
+            if (AppUsers.ContainsKey(userName)) return null;
+            var user = new User(userName.ToLower());
+            AppUsers.Add(user.UserName, user);
+            return user;
+        }
+
+        public static readonly Dictionary<string, User> AppUsers = new Dictionary<string, User>();
     }
 }

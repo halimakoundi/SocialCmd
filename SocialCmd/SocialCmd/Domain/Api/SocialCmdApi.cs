@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using SocialCmd.Domain.Model;
 
 namespace SocialCmd.Domain.Api
 {
     public class SocialCmdApi
     {
-        public static readonly Dictionary<string, User> AppUsers = new Dictionary<string, User>();
         private readonly UserRepository _userRepository;
 
         public SocialCmdApi(UserRepository userRepository)
@@ -31,7 +31,7 @@ namespace SocialCmd.Domain.Api
             {
                 case CmdKey.Post:
                     var command = new PostCommand(commandDetails.UserName, commandDetails.Message, _userRepository);
-                    result = command.PostMessageToUser();
+                    result = command.Execute();
                     break;
                 case CmdKey.Follow:
                     result = UserFollowAnotherUser(commandDetails.UserName, commandDetails.UserNameToFollow);
@@ -64,14 +64,18 @@ namespace SocialCmd.Domain.Api
                 throw new Exception("The command cannot be empty.");
         }
 
-        public  QualifiedBoolean ReadUserPosts(string userName)
+        public QualifiedBoolean ReadUserPosts(string userName)
         {
             var result = new QualifiedBoolean();
-            User user;
-            _userRepository.UserExists(userName, out user, out result);
+            User user = _userRepository.UserBy(userName);
+            result.Success = true;
             if (user != null)
             {
                 result.Value = user.Read();
+            }
+            else
+            {
+                result.Success = false;
             }
             return result;
         }
@@ -79,31 +83,32 @@ namespace SocialCmd.Domain.Api
         public QualifiedBoolean PrintUserWall(string userName)
         {
             var result = new QualifiedBoolean();
-            User user;
-            var userExist = _userRepository.UserExists(userName, out user, out result);
-            if (userExist && user != null)
+            var userExist = _userRepository.UserBy(userName);
+            if (userExist != null)
             {
-                result.Value = user.WriteToWall();
+                result.Value = userExist.WriteToWall();
+            }
+            else
+            {
+                result.Success = false;
             }
             return result;
         }
 
-        public  QualifiedBoolean UserFollowAnotherUser(string userName, string userNameToFollow)
+        public QualifiedBoolean UserFollowAnotherUser(string userName, string userNameToFollow)
         {
-            QualifiedBoolean result;
-            User user;
-            var userExist = _userRepository.UserExists(userName, out user, out result);
+            var result = new QualifiedBoolean();
+            var user = _userRepository.UserBy(userName);
 
-            User userToFollow;
-            var usertoFollowExist = _userRepository.UserExists(userNameToFollow, out userToFollow, out result);
+            var usertoFollow = _userRepository.UserBy(userNameToFollow);
 
-            if (userExist && usertoFollowExist && user != null && userToFollow != null)
+            if (user != null && usertoFollow != null)
             {
-                user.Follow(userToFollow);
+                user.Follow(usertoFollow);
             }
             else
             {
-                result.Value = $"User{(!usertoFollowExist ? " to follow" : "")} does not exist";
+                result.Value = $"User{(usertoFollow != null ? " to follow" : "")} does not exist";
                 result.Success = false;
             }
             return result;

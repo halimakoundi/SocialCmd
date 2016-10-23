@@ -1,11 +1,13 @@
 
+using SocialCmd.Domain.Model;
+
 namespace SocialCmd.Domain.Api
 {
     internal class PostCommand : ISocialCommand
     {
         private readonly string _userName;
         private readonly string _message;
-        private UserRepository _userRepository;
+        private readonly UserRepository _userRepository;
 
         public PostCommand(string userName, string message, UserRepository userRepository)
         {
@@ -14,19 +16,13 @@ namespace SocialCmd.Domain.Api
             _userRepository = userRepository;
         }
 
-        public QualifiedBoolean PostMessageToUser()
+        public QualifiedBoolean Execute()
         {
-            User user;
-            QualifiedBoolean result;
-            _userRepository.UserExists(_userName, out user, out result, true);
-
-            if ((user == null) || (_message == null))
-            {
-                return result;
-            }
+            var user =_userRepository.UserBy(_userName) 
+                     ?? _userRepository.CreateUserWith(_userName);
             user.Post(_message);
 
-            return result;
+            return new QualifiedBoolean();
         }
     }
 
