@@ -43,7 +43,8 @@ namespace SocialCmd.Domain.Api
                     result = command.Execute();
                     break;
                 case CmdKey.PrintWall:
-                    result = PrintUserWall(commandDetails.UserName);
+                     command = new PrintWallCommand(commandDetails, _userRepository);
+                    result = command.Execute();
                     break;
                 default:
                     result = SkipInvalidCommand();
@@ -65,21 +66,6 @@ namespace SocialCmd.Domain.Api
         {
             if (string.IsNullOrEmpty(enteredCommand))
                 throw new Exception("The command cannot be empty.");
-        }
-
-        public CommandResponse PrintUserWall(string userName)
-        {
-            var result = new CommandResponse();
-            var userExist = _userRepository.FindUserBy(userName);
-            if (userExist != null)
-            {
-                result.Value = userExist.WriteToWall();
-            }
-            else
-            {
-                result.Success = false;
-            }
-            return result;
         }
 
         public CommandResponse UserFollowAnotherUser(string userName, string userNameToFollow)
