@@ -5,22 +5,20 @@ namespace SocialCmd.Domain.Api
 {
     internal class PostCommand : ISocialCommand
     {
-        private readonly string _userName;
-        private readonly string _message;
+        private readonly CommandDetails _commandDetails;
         private readonly UserRepository _userRepository;
 
-        public PostCommand(string userName, string message, UserRepository userRepository)
+        public PostCommand(CommandDetails commandDetails, UserRepository userRepository)
         {
-            _userName = userName;
-            _message = message;
+            _commandDetails = commandDetails;
             _userRepository = userRepository;
         }
 
         public QualifiedBoolean Execute()
         {
-            var user =_userRepository.FindUserBy(_userName) 
-                     ?? _userRepository.CreateUserWith(_userName);
-            user.Post(_message);
+            var user =_userRepository.FindUserBy(_commandDetails.UserName) 
+                     ?? _userRepository.CreateUserWith(_commandDetails.UserName);
+            user.Post(_commandDetails.Message);
 
             return new QualifiedBoolean();
         }
