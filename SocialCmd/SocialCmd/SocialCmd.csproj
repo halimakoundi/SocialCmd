@@ -42,7 +42,7 @@
     <Compile Include="IConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Domain\Api\SocialCmdApi.cs" />
+    <Compile Include="Domain\Api\SocialCmdApp.cs" />
     <Compile Include="Domain\Settings\CmdKey.cs" />
     <Compile Include="Domain\Settings\Settings.cs" />
     <Compile Include="Domain\Model\Post.cs" />

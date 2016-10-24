@@ -24,7 +24,7 @@ namespace SocialCmd
             try
             {
                 var enteredCommand = _console.PromptUserForCommand();
-                var result = new SocialCmdApi(UserRepository).ExecuteCommandAndReturnResult(_cmdKeys, enteredCommand);
+                var result = new SocialCmdApp(UserRepository).ExecuteCommandAndReturnResult(_cmdKeys, enteredCommand);
                 _console.PrintResult(result);
             }
             catch (Exception ex)

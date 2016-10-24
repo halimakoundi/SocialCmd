@@ -4,11 +4,11 @@ using SocialCmd.Domain.Model;
 
 namespace SocialCmd.Domain.Api
 {
-    public class SocialCmdApi
+    public class SocialCmdApp
     {
         private readonly UserRepository _userRepository;
 
-        public SocialCmdApi(UserRepository userRepository)
+        public SocialCmdApp(UserRepository userRepository)
         {
             _userRepository = userRepository;
         }
