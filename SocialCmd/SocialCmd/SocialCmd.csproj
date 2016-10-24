@@ -39,6 +39,7 @@
     <Compile Include="Domain\Api\CommandDetails.cs" />
     <Compile Include="Domain\Api\ICommand.cs" />
     <Compile Include="Domain\Api\PostCommand.cs" />
+    <Compile Include="Domain\Api\ReadAllPostsCommand.cs" />
     <Compile Include="Domain\Api\UserRepository.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="Program.cs" />

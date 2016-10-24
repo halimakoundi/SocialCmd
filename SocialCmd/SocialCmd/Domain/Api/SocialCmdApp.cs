@@ -28,17 +28,19 @@ namespace SocialCmd.Domain.Api
         private CommandResponse ExecuteCommandWith(CommandDetails commandDetails)
         {
             CommandResponse result;
+            ICommand command;
             switch (commandDetails.CommandKey)
             {
                 case CmdKey.Post:
-                    var command = new PostCommand(commandDetails, _userRepository);
+                    command = new PostCommand(commandDetails, _userRepository);
                     result = command.Execute();
                     break;
                 case CmdKey.Follow:
                     result = UserFollowAnotherUser(commandDetails.UserName, commandDetails.UserNameToFollow);
                     break;
                 case CmdKey.Read:
-                    result = ReadUserPosts(commandDetails.UserName);
+                    command = new ReadAllPostsCommand(commandDetails, _userRepository);
+                    result = command.Execute();
                     break;
                 case CmdKey.PrintWall:
                     result = PrintUserWall(commandDetails.UserName);
@@ -65,22 +67,6 @@ namespace SocialCmd.Domain.Api
                 throw new Exception("The command cannot be empty.");
         }
 
-        public CommandResponse ReadUserPosts(string userName)
-        {
-            var result = new CommandResponse();
-            User user = _userRepository.FindUserBy(userName);
-            result.Success = true;
-            if (user != null)
-            {
-                result.Value = user.Read();
-            }
-            else
-            {
-                result.Success = false;
-            }
-            return result;
-        }
-
         public CommandResponse PrintUserWall(string userName)
         {
             var result = new CommandResponse();
@@ -100,7 +86,6 @@ namespace SocialCmd.Domain.Api
         {
             var result = new CommandResponse();
             var user = _userRepository.FindUserBy(userName);
-
             var usertoFollow = _userRepository.FindUserBy(userNameToFollow);
 
             if (user != null && usertoFollow != null)
