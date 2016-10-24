@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SocialCmd.Domain.Model;
+using SocialCmd.Domain.Utilities;
 
 namespace SocialCmd.Domain.Api
 {
@@ -13,7 +14,7 @@ namespace SocialCmd.Domain.Api
             _userRepository = userRepository;
         }
 
-        public QualifiedBoolean ExecuteCommandAndReturnResult(
+        public CommandResponse ExecuteCommandAndReturnResult(
             Dictionary<string, CmdKey> cmdKeys,
             string enteredCommand)
         {
@@ -24,13 +25,13 @@ namespace SocialCmd.Domain.Api
             return ExecuteCommandWith(details);
         }
 
-        private QualifiedBoolean ExecuteCommandWith(CommandDetails commandDetails)
+        private CommandResponse ExecuteCommandWith(CommandDetails commandDetails)
         {
-            QualifiedBoolean result;
+            CommandResponse result;
             switch (commandDetails.CommandKey)
             {
                 case CmdKey.Post:
-                    var command = new PostCommand(commandDetails.UserName, commandDetails.Message, _userRepository);
+                    var command = new PostCommand(commandDetails, _userRepository);
                     result = command.Execute();
                     break;
                 case CmdKey.Follow:
@@ -49,9 +50,9 @@ namespace SocialCmd.Domain.Api
             return result;
         }
 
-        private static QualifiedBoolean SkipInvalidCommand()
+        private static CommandResponse SkipInvalidCommand()
         {
-            return new QualifiedBoolean
+            return new CommandResponse
             {
                 Value = "Command not recognised.",
                 Success = false
@@ -64,9 +65,9 @@ namespace SocialCmd.Domain.Api
                 throw new Exception("The command cannot be empty.");
         }
 
-        public QualifiedBoolean ReadUserPosts(string userName)
+        public CommandResponse ReadUserPosts(string userName)
         {
-            var result = new QualifiedBoolean();
+            var result = new CommandResponse();
             User user = _userRepository.FindUserBy(userName);
             result.Success = true;
             if (user != null)
@@ -80,9 +81,9 @@ namespace SocialCmd.Domain.Api
             return result;
         }
 
-        public QualifiedBoolean PrintUserWall(string userName)
+        public CommandResponse PrintUserWall(string userName)
         {
-            var result = new QualifiedBoolean();
+            var result = new CommandResponse();
             var userExist = _userRepository.FindUserBy(userName);
             if (userExist != null)
             {
@@ -95,9 +96,9 @@ namespace SocialCmd.Domain.Api
             return result;
         }
 
-        public QualifiedBoolean UserFollowAnotherUser(string userName, string userNameToFollow)
+        public CommandResponse UserFollowAnotherUser(string userName, string userNameToFollow)
         {
-            var result = new QualifiedBoolean();
+            var result = new CommandResponse();
             var user = _userRepository.FindUserBy(userName);
 
             var usertoFollow = _userRepository.FindUserBy(userNameToFollow);

@@ -1,4 +1,5 @@
 using System;
+using SocialCmd.Domain.Utilities;
 
 namespace SocialCmd
 {
@@ -24,7 +25,7 @@ namespace SocialCmd
             Write(A_PROBLEM_OCCURED + message);
         }
 
-        public void PrintResult(QualifiedBoolean result)
+        public void PrintResult(CommandResponse result)
         {
             if (result.Success)
             {

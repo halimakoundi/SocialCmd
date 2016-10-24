@@ -1,9 +1,10 @@
 
 using SocialCmd.Domain.Model;
+using SocialCmd.Domain.Utilities;
 
 namespace SocialCmd.Domain.Api
 {
-    internal class PostCommand : ISocialCommand
+    internal class PostCommand : ICommand
     {
         private readonly CommandDetails _commandDetails;
         private readonly UserRepository _userRepository;
@@ -14,17 +15,13 @@ namespace SocialCmd.Domain.Api
             _userRepository = userRepository;
         }
 
-        public QualifiedBoolean Execute()
+        public CommandResponse Execute()
         {
             var user =_userRepository.FindUserBy(_commandDetails.UserName) 
                      ?? _userRepository.CreateUserWith(_commandDetails.UserName);
             user.Post(_commandDetails.Message);
 
-            return new QualifiedBoolean();
+            return new CommandResponse();
         }
-    }
-
-    public interface ISocialCommand
-    {
     }
 }
