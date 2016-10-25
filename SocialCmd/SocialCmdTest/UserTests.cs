@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using System;
-using SocialCmd;
 using SocialCmd.Domain.Model;
 
 namespace SocialCmdTest
