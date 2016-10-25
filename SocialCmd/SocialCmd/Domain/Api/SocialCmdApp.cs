@@ -80,9 +80,16 @@ namespace SocialCmd.Domain.Api
             }
             else
             {
-                result.Value = $"User{(usertoFollow != null ? " to follow" : "")} does not exist";
-                result.Success = false;
+                result = GetValue(usertoFollow);
             }
+            return result;
+        }
+
+        private static CommandResponse GetValue(User usertoFollow)
+        {
+            CommandResponse result = new CommandResponse();
+            result.Value = $"User{(usertoFollow != null ? " to follow" : "")} does not exist";
+            result.Success = false;
             return result;
         }
     }
