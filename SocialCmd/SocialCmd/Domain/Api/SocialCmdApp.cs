@@ -80,12 +80,12 @@ namespace SocialCmd.Domain.Api
             }
             else
             {
-                result = GetValue(usertoFollow);
+                result = InvalidRequestFor(usertoFollow);
             }
             return result;
         }
 
-        private static CommandResponse GetValue(User usertoFollow)
+        private static CommandResponse InvalidRequestFor(User usertoFollow)
         {
             CommandResponse result = new CommandResponse();
             result.Value = $"User{(usertoFollow != null ? " to follow" : "")} does not exist";
