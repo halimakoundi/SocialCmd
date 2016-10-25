@@ -36,14 +36,15 @@ namespace SocialCmd.Domain.Api
                     result = command.Execute();
                     break;
                 case CmdKey.Follow:
-                    result = UserFollowAnotherUser(commandDetails.UserName, commandDetails.UserNameToFollow, _userRepository);
+                    command = new FollowUserCommand(commandDetails, _userRepository);
+                    result = command.Execute();
                     break;
                 case CmdKey.Read:
                     command = new ReadAllPostsCommand(commandDetails, _userRepository);
                     result = command.Execute();
                     break;
                 case CmdKey.PrintWall:
-                     command = new PrintWallCommand(commandDetails, _userRepository);
+                    command = new PrintWallCommand(commandDetails, _userRepository);
                     result = command.Execute();
                     break;
                 default:
@@ -66,40 +67,6 @@ namespace SocialCmd.Domain.Api
         {
             if (string.IsNullOrEmpty(enteredCommand))
                 throw new Exception("The command cannot be empty.");
-        }
-
-        public static CommandResponse UserFollowAnotherUser(string userName, string userNameToFollow, UserRepository userRepository)
-        {
-            var usertoFollow = userRepository.FindUserBy(userNameToFollow);
-            var user = userRepository.FindUserBy(userName);
-
-            var result = UserFollow(usertoFollow, user);
-
-            return result;
-        }
-
-        private static CommandResponse UserFollow(User usertoFollow, User user)
-        {
-            var result = new CommandResponse();
-            if (user != null && usertoFollow != null)
-            {
-                user.Follow(usertoFollow);
-            }
-            else
-            {
-                result = InvalidRequestFor(usertoFollow);
-            }
-            return result;
-        }
-
-        private static CommandResponse InvalidRequestFor(User usertoFollow)
-        {
-            var result = new CommandResponse
-            {
-                Value = $"User{(usertoFollow != null ? " to follow" : "")} does not exist",
-                Success = false
-            };
-            return result;
         }
     }
 }

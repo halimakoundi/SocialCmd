@@ -41,6 +41,7 @@
     <Compile Include="Console.cs" />
     <Compile Include="Domain\Api\CommadParser.cs" />
     <Compile Include="Domain\Api\CommandDetails.cs" />
+    <Compile Include="Domain\Api\FollowUserCommand.cs" />
     <Compile Include="Domain\Api\ICommand.cs" />
     <Compile Include="Domain\Api\PostCommand.cs" />
     <Compile Include="Domain\Api\PrintWallCommand.cs" />
