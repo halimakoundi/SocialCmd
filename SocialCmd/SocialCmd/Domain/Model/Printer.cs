@@ -32,10 +32,10 @@ namespace SocialCmd.Domain.Model
             return messages;
         }
 
-        public static string Read(User user){
-            var postsStr = String.Empty;
+        public static string WriteTimelineFor(User user){
+            var postsStr = string.Empty;
             var posts = user.Posts.OrderByDescending (x => x.DatePosted).ToList();
-            foreach (Post post in posts) {
+            foreach (var post in posts) {
                 postsStr += Printer.PrintToTimeLine(post) ;
             }
             return postsStr;
