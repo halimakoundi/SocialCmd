@@ -24,8 +24,13 @@ namespace SocialCmd.Domain.Model
 
 		public override string ToString ()
 		{
-			return $"{Message} ({_dateProvider.TimelinePostDate(DatePosted)}){Environment.NewLine}";
+			return PrintToTimeLine(this, _dateProvider);
 		}
+
+	    private static string PrintToTimeLine(Post post, DateProvider dateProvider)
+	    {
+	        return $"{post.Message} ({dateProvider.TimelinePostDate(post.DatePosted)}){Environment.NewLine}";
+	    }
 	}
 }
 
