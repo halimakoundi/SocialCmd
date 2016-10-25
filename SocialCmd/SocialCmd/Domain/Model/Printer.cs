@@ -4,9 +4,11 @@ namespace SocialCmd.Domain.Model
 {
     public static class Printer
     {
-        public static string PrintToTimeLine(Post post, DateProvider dateProvider)
+        private static readonly DateProvider DateProvider= new DateProvider();
+
+        public static string PrintToTimeLine(Post post)
         {
-            return $"{post.Message} ({dateProvider.TimelinePostDate(post.DatePosted)}){Environment.NewLine}";
+            return $"{post.Message} ({DateProvider.TimelinePostDate(post.DatePosted)}){Environment.NewLine}";
         }
 
         public static string PrintToWall(Post post)

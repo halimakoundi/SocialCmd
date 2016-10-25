@@ -20,7 +20,7 @@ namespace SocialCmd.Domain.Model
 
 	    public override string ToString ()
 		{
-			return Printer.PrintToTimeLine(this, _dateProvider);
+			return Printer.PrintToTimeLine(this);
 		}
 	}
 }
