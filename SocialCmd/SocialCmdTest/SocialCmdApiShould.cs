@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using NSubstitute;
 using SocialCmd;
@@ -10,7 +9,7 @@ namespace SocialCmdTest
     [TestFixture()]
     public class SocialCmdApiShould
     {
-        private Dictionary<String, CmdKey> _cmdKeys = new Dictionary<String, CmdKey>();
+        private Dictionary<string, CmdKey> _cmdKeys = new Dictionary<string, CmdKey>();
         private UserRepository _userRepository;
         private SocialCmdApp _socialCmdApp;
 
@@ -41,10 +40,10 @@ namespace SocialCmdTest
         [Test]
         public void post_user_message_given_equals_key_is_defined()
         {
-            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> I am calling this only to create the user");
+            _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> I am calling this only to create the user");
             _cmdKeys.Add("=", CmdKey.Post);
 
-            result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser = This is a test message");
+            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser = This is a test message");
 
             Assert.IsTrue(result.Success);
         }
@@ -69,12 +68,12 @@ namespace SocialCmdTest
         }
 
         [Test]
-        public  void read_user_messages()
+        public void read_user_messages()
         {
             _cmdKeys.Add("read", CmdKey.Read);
-            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> This is a test message");
+            _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser -> This is a test message");
 
-            result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser read");
+            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "TestUser read");
 
             Assert.IsTrue(result.Success);
         }
@@ -82,10 +81,10 @@ namespace SocialCmdTest
         [Test()]
         public void allow_when_an_existing_user_follows_another_user()
         {
-            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUser -> This is a test message");
-            result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "anotherUser -> This is another test message");
+            _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUser -> This is a test message");
+            _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "anotherUser -> This is another test message");
 
-            result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUser follows anotherUser ");
+            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "FollowTestUser follows anotherUser ");
 
             Assert.IsTrue(result.Success);
         }
@@ -101,9 +100,9 @@ namespace SocialCmdTest
         [Test()]
         public void ExecuteCommandAndReturnResult_WallTest()
         {
-            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser -> I am calling this to create the user");
+            _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser -> I am calling this to create the user");
 
-            result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser wall");
+            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser wall");
 
             Assert.IsTrue(result.Success);
 
@@ -119,10 +118,10 @@ namespace SocialCmdTest
         [Test]
         public void print_wall_when_mur_key_is_defined_and_used()
         {
-            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser -> This is a test message");
+            _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser -> This is a test message");
             _cmdKeys.Add("mur", CmdKey.PrintWall);
 
-            result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser mur");
+            var result = _socialCmdApp.ExecuteCommandAndReturnResult(_cmdKeys, "WallTestUser mur");
 
             Assert.IsTrue(result.Success);
         }
