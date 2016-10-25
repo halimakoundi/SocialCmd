@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SocialCmd.Domain.Model;
 using SocialCmd.Domain.Utilities;
 
 namespace SocialCmd.Domain.Api

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SocialCmd
+namespace SocialCmd.Domain.Model
 {
 	public class Post
 	{
@@ -8,36 +8,27 @@ namespace SocialCmd
 
         public Post (string userName, string message)
 		{
-			this.UserName = userName;
-			this.Message = message;
-			this.DatePosted = DateTime.Now;
+			UserName = userName;
+            Message = message;
+            DatePosted = DateTime.Now;
 		}
-
-        public Post(string v)
-        {
-            this.v = v;
-        }
 
         public string UserName{ get;}
 		public string Message{ get;}
 		public DateTime DatePosted{ get;}
 
-		/// <summary>
-		/// Timelines the post date.
-		/// </summary>
-		/// <returns>The relative time of the post</returns>
 		private string TimelinePostDate(){
 			
-			TimeSpan span = (DateTime.Now).Subtract ( DatePosted );
+			var span = (DateTime.Now).Subtract ( DatePosted );
 			var timeDifference = string.Empty;
 			if (span.Days > 0) {
-				timeDifference += string.Format("{0} day{1}", span.Days, (span.Days > 1 ? "s" : ""));
+				timeDifference += $"{span.Days} day{(span.Days > 1 ? "s" : "")}";
 			}else if (span.Hours > 0) {
-				timeDifference += string.Format("{0} hour{1}", span.Hours, (span.Hours > 1 ? "s" : ""));
+				timeDifference += $"{span.Hours} hour{(span.Hours > 1 ? "s" : "")}";
 			}else if (span.Minutes > 0) {
-				timeDifference += string.Format("{0} minute{1}", span.Minutes, (span.Minutes > 1 ? "s" : ""));
+				timeDifference += $"{span.Minutes} minute{(span.Minutes > 1 ? "s" : "")}";
 			}else if (span.Seconds > 0) {
-				timeDifference += string.Format("{0} second{1}", span.Seconds, (span.Seconds > 1 ? "s" : ""));;
+				timeDifference += $"{span.Seconds} second{(span.Seconds > 1 ? "s" : "")}";;
 			}
 			if(!string.IsNullOrEmpty(timeDifference)){
 				timeDifference += " ago";
@@ -47,18 +38,13 @@ namespace SocialCmd
 			return timeDifference ;
 		}
 
-		/// <summary>
-		/// Writes the posted message to a wall.
-		/// </summary>
-		/// <returns>The formatted post message containing the user name , the message 
-		/// and the relative time it has been posted</returns>
 		public string WriteToWall(){
-			return string.Format ("{0} - {1}", this.UserName, this.ToString ());
+			return $"{UserName} - {this}";
 		}
 
 		public override string ToString ()
 		{
-			return string.Format ("{0} ({1}){2}", Message, TimelinePostDate(), Environment.NewLine);
+			return $"{Message} ({TimelinePostDate()}){Environment.NewLine}";
 		}
 	}
 }
