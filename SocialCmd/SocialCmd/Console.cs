@@ -37,7 +37,7 @@ namespace SocialCmd
             }
         }
 
-        private static void Write(string message)
+        public void Write(string message)
         {
             System.Console.Write(message);
         }

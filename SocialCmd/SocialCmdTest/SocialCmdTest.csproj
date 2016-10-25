@@ -39,7 +39,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PostTests.cs" />
+    <Compile Include="PrinterShould.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="SocialCmdApiShould.cs" />
   </ItemGroup>

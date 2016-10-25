@@ -2,7 +2,7 @@ using System;
 
 namespace SocialCmd.Domain.Model
 {
-    public static class Printer
+    public class Printer
     {
         private static readonly DateProvider DateProvider= new DateProvider();
 
