@@ -8,5 +8,10 @@ namespace SocialCmd.Domain.Model
         {
             return $"{post.Message} ({dateProvider.TimelinePostDate(post.DatePosted)}){Environment.NewLine}";
         }
+
+        public static string PrintToWall(Post post)
+        {
+            return $"{post.UserName} - {post}";
+        }
     }
 }

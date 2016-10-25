@@ -19,10 +19,10 @@ namespace SocialCmd.Domain.Model
 		public DateTime DatePosted{ get;}
 
 	    public string WriteToWall(){
-			return $"{UserName} - {this}";
+			return Printer.PrintToWall(this);
 		}
 
-		public override string ToString ()
+	    public override string ToString ()
 		{
 			return Printer.PrintToTimeLine(this, _dateProvider);
 		}
