@@ -28,39 +28,27 @@ namespace SocialCmd.Domain.Api
         private CommandResponse ExecuteCommandWith(CommandDetails commandDetails)
         {
             CommandResponse result;
-            ICommand command;
+            ICommand command = null;
             switch (commandDetails.CommandKey)
             {
                 case CmdKey.Post:
                     command = new PostCommand(commandDetails, _userRepository);
-                    result = command.Execute();
                     break;
                 case CmdKey.Follow:
                     command = new FollowUserCommand(commandDetails, _userRepository);
-                    result = command.Execute();
                     break;
                 case CmdKey.Read:
                     command = new ReadAllPostsCommand(commandDetails, _userRepository);
-                    result = command.Execute();
                     break;
                 case CmdKey.PrintWall:
                     command = new PrintWallCommand(commandDetails, _userRepository);
-                    result = command.Execute();
                     break;
                 default:
-                    result = SkipInvalidCommand();
+                    command = new InvalidCommand();
                     break;
             }
+            result = command.Execute();
             return result;
-        }
-
-        private static CommandResponse SkipInvalidCommand()
-        {
-            return new CommandResponse
-            {
-                Value = "Command not recognised.",
-                Success = false
-            };
         }
 
         private static void EnsureIsValid(string enteredCommand)
