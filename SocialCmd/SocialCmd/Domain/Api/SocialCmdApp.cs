@@ -68,12 +68,19 @@ namespace SocialCmd.Domain.Api
                 throw new Exception("The command cannot be empty.");
         }
 
-        public CommandResponse UserFollowAnotherUser(string userName, string userNameToFollow, UserRepository userRepository)
+        public static CommandResponse UserFollowAnotherUser(string userName, string userNameToFollow, UserRepository userRepository)
+        {
+            var usertoFollow = userRepository.FindUserBy(userNameToFollow);
+            var user = userRepository.FindUserBy(userName);
+
+            var result = UserFollow(usertoFollow, user);
+
+            return result;
+        }
+
+        private static CommandResponse UserFollow(User usertoFollow, User user)
         {
             var result = new CommandResponse();
-            var user = userRepository.FindUserBy(userName);
-            var usertoFollow = userRepository.FindUserBy(userNameToFollow);
-
             if (user != null && usertoFollow != null)
             {
                 user.Follow(usertoFollow);
