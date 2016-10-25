@@ -38,20 +38,20 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Console.cs" />
-    <Compile Include="Domain\Api\CommadParser.cs" />
-    <Compile Include="Domain\Api\Command.cs" />
-    <Compile Include="Domain\Api\CommandDetails.cs" />
-    <Compile Include="Domain\Api\FollowUserCommand.cs" />
-    <Compile Include="Domain\Api\ICommand.cs" />
-    <Compile Include="Domain\Api\InvalidCommand.cs" />
-    <Compile Include="Domain\Api\PostCommand.cs" />
-    <Compile Include="Domain\Api\PrintWallCommand.cs" />
-    <Compile Include="Domain\Api\ReadAllPostsCommand.cs" />
-    <Compile Include="Domain\Api\UserRepository.cs" />
+    <Compile Include="Domain\Infra\Console.cs" />
+    <Compile Include="Domain\Commands\CommadParser.cs" />
+    <Compile Include="Domain\Commands\Command.cs" />
+    <Compile Include="Domain\Commands\CommandDetails.cs" />
+    <Compile Include="Domain\Commands\FollowUserCommand.cs" />
+    <Compile Include="Domain\Commands\ICommand.cs" />
+    <Compile Include="Domain\Commands\InvalidCommand.cs" />
+    <Compile Include="Domain\Commands\PostCommand.cs" />
+    <Compile Include="Domain\Commands\PrintWallCommand.cs" />
+    <Compile Include="Domain\Commands\ReadAllPostsCommand.cs" />
+    <Compile Include="Domain\Infra\UserRepository.cs" />
     <Compile Include="Domain\Model\DateProvider.cs" />
     <Compile Include="Domain\Model\Printer.cs" />
-    <Compile Include="IConsole.cs" />
+    <Compile Include="Domain\Model\IConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Api\SocialCmdApp.cs" />

@@ -19,7 +19,7 @@ namespace SocialCmd.Domain.Model
         }
 
         public static string WriteToWall(User user){
-            var messages = String.Empty;
+            var messages = string.Empty;
             var postsList = new List<Post>();
             postsList.AddRange (user.Followings.SelectMany (x => x.Posts).ToList());
             postsList.AddRange (user.Posts);
@@ -36,7 +36,7 @@ namespace SocialCmd.Domain.Model
             var postsStr = string.Empty;
             var posts = user.Posts.OrderByDescending (x => x.DatePosted).ToList();
             foreach (var post in posts) {
-                postsStr += Printer.PrintToTimeLine(post) ;
+                postsStr += PrintToTimeLine(post) ;
             }
             return postsStr;
         }
