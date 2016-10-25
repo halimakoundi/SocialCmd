@@ -65,7 +65,7 @@ namespace SocialCmdTest
 			var newPost = new Post(user.UserName, "This is a great day :-) ", _dateProvider);
 			user.Post (newPost);
 
-            Assert.AreEqual ($"{newPost.WriteToWall()}{bobPost.WriteToWall()}", 
+            Assert.AreEqual ($"{Printer.PrintToWall(newPost)}{Printer.PrintToWall(bobPost)}", 
 								user.WriteToWall());
 		}
 	}

@@ -50,7 +50,7 @@ namespace SocialCmd.Domain.Model
 			postsList = postsList.OrderByDescending (x => x.DatePosted).ToList();
 
 			foreach(var post in postsList){
-				messages += post.WriteToWall();
+				messages += Printer.PrintToWall(post);
 			}
 
 			return messages;

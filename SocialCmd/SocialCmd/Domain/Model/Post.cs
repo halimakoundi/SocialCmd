@@ -18,10 +18,6 @@ namespace SocialCmd.Domain.Model
 		public string Message{ get;}
 		public DateTime DatePosted{ get;}
 
-	    public string WriteToWall(){
-			return Printer.PrintToWall(this);
-		}
-
 	    public override string ToString ()
 		{
 			return Printer.PrintToTimeLine(this, _dateProvider);
