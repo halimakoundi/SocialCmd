@@ -1,3 +1,4 @@
+using SocialCmd.Domain.Model;
 using SocialCmd.Domain.Utilities;
 
 namespace SocialCmd.Domain.Api
@@ -19,7 +20,7 @@ namespace SocialCmd.Domain.Api
             var user = _userRepository.FindUserBy(_commandDetails.UserName);
             if (user != null)
             {
-                result.Value = user.Read();
+                result.Value = Printer.Read(user);
             }
             else
             {

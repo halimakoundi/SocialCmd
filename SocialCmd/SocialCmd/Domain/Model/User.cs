@@ -30,15 +30,6 @@ namespace SocialCmd.Domain.Model
 			}
 		}
 
-	    public string Read(){
-	        var postsStr = string.Empty;
-	        var posts = this.Posts.OrderByDescending (x => x.DatePosted).ToList();
-	        foreach (Post post in posts) {
-	            postsStr += Printer.PrintToTimeLine(post) ;
-	        }
-	        return postsStr;
-	    }
-
 	    public override string ToString ()
 		{
 			return UserName != null && string.IsNullOrEmpty(UserName) ? UserName : "Unknown";

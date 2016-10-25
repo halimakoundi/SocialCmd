@@ -31,10 +31,10 @@ namespace SocialCmdTest
 		public void ReadingTest ()
 		{
 			var user = new User ("Alice");
-			Assert.AreEqual ("", user.Read ());
+			Assert.AreEqual ("", Printer.Read (user));
 			var newPost = new Post(user.UserName, "This a great day :-) ", DateTime.Now);
 			user.Post (newPost);
-			Assert.AreEqual (Printer.PrintToTimeLine(newPost), user.Read ());
+			Assert.AreEqual (Printer.PrintToTimeLine(newPost), Printer.Read (user));
 		}
 
 		[Test ()]
