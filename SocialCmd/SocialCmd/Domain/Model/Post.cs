@@ -17,11 +17,6 @@ namespace SocialCmd.Domain.Model
         public string UserName{ get;}
 		public string Message{ get;}
 		public DateTime DatePosted{ get;}
-
-	    public override string ToString ()
-		{
-			return Printer.PrintToTimeLine(this);
-		}
 	}
 }
 

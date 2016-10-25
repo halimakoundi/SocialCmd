@@ -22,13 +22,13 @@ namespace SocialCmdTest
 		{
 			var newPost = new Post ("Test User", "new Post test", _dateProvider);
 
-			Assert.AreEqual ("new Post test (just now)" + Environment.NewLine, newPost.ToString());
+			Assert.AreEqual ("new Post test (just now)" + Environment.NewLine, Printer.PrintToTimeLine(newPost));
 
 			System.Threading.Thread.Sleep(1000);
-			Assert.AreEqual ("new Post test (1 second ago)" + Environment.NewLine, newPost.ToString());
+			Assert.AreEqual ("new Post test (1 second ago)" + Environment.NewLine, Printer.PrintToTimeLine(newPost));
 
 			System.Threading.Thread.Sleep(1000);
-			Assert.AreEqual ("new Post test (2 seconds ago)" + Environment.NewLine, newPost.ToString());
+			Assert.AreEqual ("new Post test (2 seconds ago)" + Environment.NewLine, Printer.PrintToTimeLine(newPost));
 			/*
 			System.Threading.Thread.Sleep(60000);
 			Assert.AreEqual ("new Post test (1 minute ago)" + Environment.NewLine, newPost.ToString());

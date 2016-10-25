@@ -13,7 +13,7 @@ namespace SocialCmd.Domain.Model
 
         public static string PrintToWall(Post post)
         {
-            return $"{post.UserName} - {post}";
+            return $"{post.UserName} - {PrintToTimeLine(post)}";
         }
     }
 }

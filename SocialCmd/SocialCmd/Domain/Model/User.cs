@@ -19,7 +19,7 @@ namespace SocialCmd.Domain.Model
 			var postsStr = string.Empty;
 			var posts = this.Posts.OrderByDescending (x => x.DatePosted).ToList();
 			foreach (Post post in posts) {
-				postsStr += post.ToString () ;
+				postsStr += Printer.PrintToTimeLine(post) ;
 			}
 			return postsStr;
 		}

@@ -25,7 +25,7 @@ namespace SocialCmdTest
 	        var newPost = new Post (user.UserName, "We lost!", _dateProvider);
 			user.Post(newPost );
 			Assert.IsTrue (user.Posts.Count > 0);
-			Assert.AreEqual (newPost.ToString(),user.Posts[0].ToString());
+			Assert.AreEqual (Printer.PrintToTimeLine(newPost),Printer.PrintToTimeLine(user.Posts[0]));
 		}
 
 	    [Test ()]
@@ -35,7 +35,7 @@ namespace SocialCmdTest
 			Assert.AreEqual ("", user.Read ());
 			var newPost = new Post(user.UserName, "This a great day :-) ", _dateProvider);
 			user.Post (newPost);
-			Assert.AreEqual (newPost.ToString (), user.Read ());
+			Assert.AreEqual (Printer.PrintToTimeLine(newPost), user.Read ());
 		}
 
 		[Test ()]
