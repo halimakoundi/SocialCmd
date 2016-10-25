@@ -4,14 +4,11 @@ namespace SocialCmd.Domain.Model
 {
 	public class Post
 	{
-	    private readonly DateProvider _dateProvider;
-
-	    public Post (string userName, string message, DateProvider dateProvider)
+	    public Post (string userName, string message, DateTime datePosted)
 		{
 			UserName = userName;
             Message = message;
-	        _dateProvider = dateProvider;
-	        DatePosted = DateTime.Now;
+	        DatePosted = datePosted;
 		}
 
         public string UserName{ get;}

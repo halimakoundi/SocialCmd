@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SocialCmd.Domain.Model
@@ -29,7 +30,7 @@ namespace SocialCmd.Domain.Model
 		}
 
 		public void Post(string message){
-			this.Post(new Post(this.UserName, message, new DateProvider()));
+			this.Post(new Post(this.UserName, message, DateTime.Now));
 		}
 
 		public void Follow(User user){

@@ -20,7 +20,7 @@ namespace SocialCmdTest
         [Test]
 		public void TimelinePostDateTest()
 		{
-			var newPost = new Post ("Test User", "new Post test", _dateProvider);
+			var newPost = new Post ("Test User", "new Post test", DateTime.Now);
 
 			Assert.AreEqual ("new Post test (just now)" + Environment.NewLine, Printer.PrintToTimeLine(newPost));
 
