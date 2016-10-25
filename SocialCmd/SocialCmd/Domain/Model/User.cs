@@ -39,21 +39,7 @@ namespace SocialCmd.Domain.Model
 	        return postsStr;
 	    }
 
-		public string WriteToWall(){
-			var messages = string.Empty;
-			var postsList = new List<Post> ();
-			postsList.AddRange (this.Followings.SelectMany (x => x.Posts).ToList());
-			postsList.AddRange (this.Posts);
-			postsList = postsList.OrderByDescending (x => x.DatePosted).ToList();
-
-			foreach(var post in postsList){
-				messages += Printer.PrintToWall(post);
-			}
-
-			return messages;
-		}
-
-		public override string ToString ()
+	    public override string ToString ()
 		{
 			return UserName != null && string.IsNullOrEmpty(UserName) ? UserName : "Unknown";
 		}

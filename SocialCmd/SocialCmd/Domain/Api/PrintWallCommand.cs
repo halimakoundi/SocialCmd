@@ -1,3 +1,4 @@
+using SocialCmd.Domain.Model;
 using SocialCmd.Domain.Utilities;
 
 namespace SocialCmd.Domain.Api
@@ -16,10 +17,10 @@ namespace SocialCmd.Domain.Api
         public CommandResponse Execute()
         {
             var result = new CommandResponse();
-            var userExist = _userRepository.FindUserBy(_commandDetails.UserName);
-            if (userExist != null)
+            var user = _userRepository.FindUserBy(_commandDetails.UserName);
+            if (user != null)
             {
-                result.Value = userExist.WriteToWall();
+                result.Value = Printer.WriteToWall(user);
             }
             else
             {

@@ -65,7 +65,7 @@ namespace SocialCmdTest
 			user.Post (newPost);
 
             Assert.AreEqual ($"{Printer.PrintToWall(newPost)}{Printer.PrintToWall(bobPost)}", 
-								user.WriteToWall());
+								Printer.WriteToWall(user));
 		}
 	}
 }
