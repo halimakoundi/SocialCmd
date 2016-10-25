@@ -49,6 +49,7 @@
     <Compile Include="Domain\Api\PrintWallCommand.cs" />
     <Compile Include="Domain\Api\ReadAllPostsCommand.cs" />
     <Compile Include="Domain\Api\UserRepository.cs" />
+    <Compile Include="Domain\Model\DateProvider.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

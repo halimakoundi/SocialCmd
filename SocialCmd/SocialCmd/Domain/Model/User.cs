@@ -29,7 +29,7 @@ namespace SocialCmd.Domain.Model
 		}
 
 		public void Post(string message){
-			this.Post(new Post(this.UserName, message));
+			this.Post(new Post(this.UserName, message, new DateProvider()));
 		}
 
 		public void Follow(User user){

@@ -8,24 +8,32 @@ namespace SocialCmdTest
 	[TestFixture ()]
 	public class UserTests
 	{
-		[Test ()]
+	    private DateProvider _dateProvider;
+
+        [SetUp]
+	    public void SetUp()
+	    {
+	        _dateProvider = new DateProvider();
+	    }
+
+	    [Test ()]
 		public void PostingTest ()
 		{
 			var user = new User ("Alice");
 
 			Assert.AreEqual ("Alice", user.UserName);
-			var newPost = new Post (user.UserName, "We lost!");
+	        var newPost = new Post (user.UserName, "We lost!", _dateProvider);
 			user.Post(newPost );
 			Assert.IsTrue (user.Posts.Count > 0);
 			Assert.AreEqual (newPost.ToString(),user.Posts[0].ToString());
 		}
 
-		[Test ()]
+	    [Test ()]
 		public void ReadingTest ()
 		{
 			var user = new User ("Alice");
 			Assert.AreEqual ("", user.Read ());
-			var newPost = new Post(user.UserName, "This a great day :-) ");
+			var newPost = new Post(user.UserName, "This a great day :-) ", _dateProvider);
 			user.Post (newPost);
 			Assert.AreEqual (newPost.ToString (), user.Read ());
 		}
@@ -49,15 +57,15 @@ namespace SocialCmdTest
 			var userBob = new User ("Bob");
 			user.Follow (userBob);
 
-			var bobPost = new Post (userBob.UserName, "Thank God it's Friday !");
+			var bobPost = new Post (userBob.UserName, "Thank God it's Friday !", _dateProvider);
 			userBob.Post (bobPost);
 
 			//wait 5 seconds before posting new message
 			System.Threading.Thread.Sleep(5000);
-			var newPost = new Post(user.UserName, "This is a great day :-) ");
+			var newPost = new Post(user.UserName, "This is a great day :-) ", _dateProvider);
 			user.Post (newPost);
 
-			Assert.AreEqual (string.Format("{0}{1}", newPost.WriteToWall(), bobPost.WriteToWall()), 
+			Assert.AreEqual ($"{newPost.WriteToWall()}{bobPost.WriteToWall()}", 
 								user.WriteToWall());
 		}
 	}

@@ -7,10 +7,20 @@ namespace SocialCmdTest
 	[TestFixture]
 	public class PostTests
 	{
-		[Test]
+	    private DateProvider _dateProvider;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _dateProvider = new DateProvider();
+        }
+
+
+        [Test]
 		public void TimelinePostDateTest()
 		{
-			var newPost = new Post ("Test User", "new Post test");
+			var newPost = new Post ("Test User", "new Post test", _dateProvider);
 
 			Assert.AreEqual ("new Post test (just now)" + Environment.NewLine, newPost.ToString());
 
