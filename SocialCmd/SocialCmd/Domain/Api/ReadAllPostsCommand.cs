@@ -20,7 +20,7 @@ namespace SocialCmd.Domain.Api
             var user = _userRepository.FindUserBy(_commandDetails.UserName);
             if (user != null)
             {
-                result.Value = Printer.Read(user);
+                result.Value = Printer.WriteTimelineFor(user);
             }
             else
             {
